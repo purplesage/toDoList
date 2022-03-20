@@ -7,7 +7,7 @@ import { projectsContent } from './projects';
 
 //*content capsule-----------------
 
-const contentCapsule = () =>{ //?this will be useful for the 'todo' project
+const contentCapsule = () =>{
     let home = homeContent();
     let today = todayContent(); 
     let week = weekContent();
@@ -17,13 +17,21 @@ const contentCapsule = () =>{ //?this will be useful for the 'todo' project
 };
 
 
-const rootDiv = document.getElementById('root'); //!target div
+const basicConfigStuff = (() => {
 
-const tasks = document.getElementById('todo-elements').getElementsByTagName('li');//!domElements
+    const rootDiv = document.getElementById('root'); //target div
 
-rootDiv.appendChild(homeContent()); //default content
+    const tasks = document.getElementById('todo-elements').getElementsByTagName('li');//domElements
 
-//*Tab changing logic:-------------------------- (algeabrized!)
+    rootDiv.appendChild(homeContent()); //default content
+
+    return {rootDiv, tasks};
+
+})();
+
+
+
+//*Tab changing logic:-------------------------- (now algeabrized!)
 
 
 const tabChangingLogic = (domElements, capsule, targetDiv) => {
@@ -44,8 +52,4 @@ const tabChangingLogic = (domElements, capsule, targetDiv) => {
     }
 };
 
-tabChangingLogic(tasks, contentCapsule(), rootDiv);
-
-console.log(contentCapsule());
-console.log(tasks);
-console.log(rootDiv);
+tabChangingLogic(basicConfigStuff.tasks, contentCapsule(), basicConfigStuff.rootDiv);
