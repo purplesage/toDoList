@@ -103,9 +103,9 @@ input, select {
 }
 //--------------------------------------------------------------
 
-/* * {
-    outline: red 1px solid !important;
-}  */
+* {
+    outline:rgb(199, 75, 80) 2px solid !important;
+}
 
 .main-grid {
     display: grid;
@@ -138,8 +138,20 @@ input, select {
     }
 
     .todo-ul-class {
+    
         background-color: rgb(113, 43, 117);
         padding: 2rem;
+        display: grid;
+        grid-template: repeat(15, 1fr) / 1fr;
+
+        .ul-header {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .normal-button {
+            order: 1;
+        }
     }
 
 

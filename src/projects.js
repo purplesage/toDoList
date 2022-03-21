@@ -1,5 +1,4 @@
-
-const projectsContent = () => {
+const projectsContentDefault = () => {
 
     let contentDiv = document.createElement('ul');
     contentDiv.setAttribute('id', 'todo-ul');
@@ -8,15 +7,17 @@ const projectsContent = () => {
     let ulHeader = document.createElement('li');
     ulHeader.innerHTML = "<h3>home<span>Due Date<span></h3>";
 
-    const addProjectsTodo = (theElement) => {
-        let test = document.querySelector('.todo-ul-class');
-        test.appendChild(theElement);
-    }
-
     contentDiv.appendChild(ulHeader);
 
-    return {contentDiv, addProjectsTodo};
+    const addContent = (elementToAdd) => {
+        contentDiv.appendChild(elementToAdd);
+    }
+
+    return {contentDiv, addContent};
 
 };
+
+const projectsContent = projectsContentDefault();
+
 
 export {projectsContent};

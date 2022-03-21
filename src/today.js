@@ -1,4 +1,4 @@
-const todayContent = () => {
+const todayContentDefault = () => {
 
     let contentDiv = document.createElement('ul');
     contentDiv.setAttribute('id', 'todo-ul');
@@ -7,15 +7,17 @@ const todayContent = () => {
     let ulHeader = document.createElement('li');
     ulHeader.innerHTML = "<h3>home<span>Due Date<span></h3>";
 
-    const addTodayTodo = (theElement) => {
-        let test = document.querySelector('.todo-ul-class');
-        test.appendChild(theElement);
-    }
-
     contentDiv.appendChild(ulHeader);
 
-    return {contentDiv, addTodayTodo};
+    const addContent = (elementToAdd) => {
+        contentDiv.appendChild(elementToAdd);
+    }
+
+    return {contentDiv, addContent};
 
 };
+
+const todayContent = todayContentDefault();
+
 
 export {todayContent};

@@ -9,9 +9,9 @@ import { projectsContent } from './projects';
 
 const contentCapsule = () =>{
     let home = homeContent.contentDiv;
-    let today = todayContent().contentDiv; 
-    let week = weekContent().contentDiv;
-    let projects = projectsContent().contentDiv;
+    let today = todayContent.contentDiv; 
+    let week = weekContent.contentDiv;
+    let projects = projectsContent.contentDiv;
 
     return [home, today, week, projects];
 };
