@@ -137,23 +137,32 @@ input, select {
         padding: 1rem;
     }
 
-    .todo-ul-class {
-    
+    .anchor-div {
         background-color: rgb(113, 43, 117);
-        padding: 2rem;
-        display: grid;
-        grid-template: repeat(15, 1fr) / 1fr;
 
-        .ul-header {
+        .todo-ul-class {
+    
+            background-color: rgb(64, 24, 66);
+            padding: 2rem;
+            display: grid;
+            grid-template: repeat(15, 1fr) / 1fr;
+            color: white;
+    
+    
+            .ul-header {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-b;
+            }
+    
+            .normal-button {
+                order: 1;
+            }
         }
+    
 
-        .normal-button {
-            order: 1;
-        }
     }
 
+    
 
 
 

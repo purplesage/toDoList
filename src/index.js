@@ -8,7 +8,7 @@ import { projectsContent } from './projects';
 //*content capsule-----------------
 
 const contentCapsule = () =>{
-    let home = homeContent.contentDiv;
+    let home = homeContent.anchorDiv;
     let today = todayContent.contentDiv; 
     let week = weekContent.contentDiv;
     let projects = projectsContent.contentDiv;
@@ -22,7 +22,7 @@ const basicConfigStuff = (() => { //default content and elements for the tabchan
 
     const tasks = document.getElementById('todo-elements').getElementsByTagName('li');//domElements
 
-    rootDiv.appendChild(homeContent.contentDiv); //default content
+    rootDiv.appendChild(homeContent.anchorDiv); //default content
 
     return {rootDiv, tasks};
 
