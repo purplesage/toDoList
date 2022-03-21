@@ -8,22 +8,21 @@ import { projectsContent } from './projects';
 //*content capsule-----------------
 
 const contentCapsule = () =>{
-    let home = homeContent();
-    let today = todayContent(); 
-    let week = weekContent();
-    let projects = projectsContent();
+    let home = homeContent.contentDiv;
+    let today = todayContent().contentDiv; 
+    let week = weekContent().contentDiv;
+    let projects = projectsContent().contentDiv;
 
     return [home, today, week, projects];
 };
 
+const basicConfigStuff = (() => { //default content and elements for the tabchanginglogic function.
 
-const basicConfigStuff = (() => {
-
-    const rootDiv = document.getElementById('root'); //target div
+    const rootDiv = document.getElementById('main-grid-id'); //target div
 
     const tasks = document.getElementById('todo-elements').getElementsByTagName('li');//domElements
 
-    rootDiv.appendChild(homeContent()); //default content
+    rootDiv.appendChild(homeContent.contentDiv); //default content
 
     return {rootDiv, tasks};
 
@@ -42,7 +41,7 @@ const tabChangingLogic = (domElements, capsule, targetDiv) => {
 
             domElements[i].addEventListener('click', () => {
                 
-                let currentContent = document.getElementById('content');
+                let currentContent = document.getElementById('todo-ul');
                     targetDiv.removeChild(currentContent);
                     targetDiv.appendChild(capsule[i]);
             });
@@ -53,3 +52,6 @@ const tabChangingLogic = (domElements, capsule, targetDiv) => {
 };
 
 tabChangingLogic(basicConfigStuff.tasks, contentCapsule(), basicConfigStuff.rootDiv);
+
+
+
