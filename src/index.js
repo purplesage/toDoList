@@ -9,7 +9,7 @@ import { projectsContent } from './projects';
 
 const contentCapsule = () =>{
     let home = homeContent.anchorDiv;
-    let today = todayContent.contentDiv; 
+    let today = todayContent.anchorDiv; 
     let week = weekContent.contentDiv;
     let projects = projectsContent.contentDiv;
 
@@ -35,7 +35,7 @@ const basicConfigStuff = (() => { //default content and elements for the tabchan
 
 const tabChangingLogic = (domListElements, contentCapsule, targetDiv, eraseElement) => {
 
-    if (domElements.length === capsule.length) {
+    if (domListElements.length === contentCapsule.length) {
 
         for (let i = 0; i < domListElements.length; i++) {
 
@@ -47,7 +47,7 @@ const tabChangingLogic = (domListElements, contentCapsule, targetDiv, eraseEleme
             });
         }
     }else{
-        throw new Error('domElements and capsule content must have the same length');
+        throw new Error('domListElements and capsuleContent must have the same length!');
     }
 };
 

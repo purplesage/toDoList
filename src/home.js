@@ -87,8 +87,8 @@ svgExitButton.addEventListener('click', () => {
 
 const homeContent = homeContentDefault();
 
-
 export {homeContent};
+
 
 let mock = document.createElement('p');
 mock.textContent = "some added content";
