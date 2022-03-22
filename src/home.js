@@ -97,8 +97,9 @@ export {homeContent};
 
 
 
-//! the object/div maker is currently under construction.
+//! the object/div maker is currently under construction.------------------------
 //it is here for testing purposes, might add them into the homeContentDefault() function.
+// one solution is to make these functions into a separate file and then import them into each content div file. need to algeabrize them first.
 
 
 const makeTodo = () => {   //todo pending: need to algeabrize this.
