@@ -172,6 +172,11 @@ input, select {
                 .ghost-div {
                     display: none;
                     flex-direction: column;
+                    gap: 10px;
+
+                    input {
+                        width: 250px;
+                    }
                 }
             }
         }

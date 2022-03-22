@@ -32,13 +32,18 @@ const homeContentDefault = () => {
         todoSettingsDescription.setAttribute('type', 'text');
         todoSettingsDescription.setAttribute('placeholder', 'eg: description example');
         ghostDiv.appendChild(todoSettingsDescription);
+    
+    let inputList = ghostDiv.getElementsByTagName('input'); //used for makeTodo() function.
 
-    let dueDateButton = document.createElement('button');
-        dueDateButton.textContent = "Due Date";
+    let dueDateButton = document.createElement('input');
+    dueDateButton.setAttribute('type', 'date');
+   /*  dueDateButton.setAttribute('placeholder', 'eg: description example'); */
+   dueDateButton.textContent = "Due date";
         ghostDiv.appendChild(dueDateButton);
     
-    let projectNameButton = document.createElement('button');
-        projectNameButton.textContent = "Project name";
+    let projectNameButton = document.createElement('input');
+    projectNameButton.setAttribute('type', 'text');
+    projectNameButton.setAttribute('placeholder', 'project name');
         ghostDiv.appendChild(projectNameButton);
     
     let svgButtonsDiv = document.createElement('div');
@@ -81,7 +86,7 @@ svgExitButton.addEventListener('click', () => {
         todoUl.appendChild(elementToAdd);
     }
 
-    return {anchorDiv, addContent};
+    return {anchorDiv, addContent, inputList};
 
 };
 
