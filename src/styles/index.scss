@@ -139,6 +139,9 @@ input, select {
 
     .anchor-div {
         background-color: rgb(113, 43, 117);
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         .todo-ul-class {
     
@@ -147,26 +150,32 @@ input, select {
             display: grid;
             grid-template: repeat(15, 1fr) / 1fr;
             color: white;
-    
-    
+            width: 900px;
+            height: 500px;
+
+            .svg-buttons-div {
+                order: 2;
+                display: none;
+            }
+
+
             .ul-header {
             display: flex;
-            justify-content: space-b;
+            order: 0;
+
             }
     
             .normal-button {
                 order: 1;
+
+
+                .ghost-div {
+                    display: none;
+                    flex-direction: column;
+                }
             }
         }
     
-
     }
-
-    
-
-
-
-
-
 }
 

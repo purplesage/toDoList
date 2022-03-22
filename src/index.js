@@ -41,7 +41,7 @@ const tabChangingLogic = (domElements, capsule, targetDiv) => {
 
             domElements[i].addEventListener('click', () => {
                 
-                let currentContent = document.getElementById('todo-ul');
+                let currentContent = document.getElementById('anchor-div-id');
                     targetDiv.removeChild(currentContent);
                     targetDiv.appendChild(capsule[i]);
             });
