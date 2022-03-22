@@ -53,5 +53,27 @@ const tabChangingLogic = (domListElements, contentCapsule, targetDiv, eraseEleme
 
 tabChangingLogic(basicConfigStuff.tasks, contentCapsule(), basicConfigStuff.rootDiv, 'anchor-div-id');
 
+//*---------todo object maker-------------------------------------
+
+const makeTodo = () => {   //todo pending: need to algeabrize this.
+    let todo = {
+        title: homeContent.inputList[0],
+        description: homeContent.inputList[1],
+        dueDate: homeContent.input[2],
+        project: homeContent.input[3],
+    }
+
+    return todo;
+}
+
+
+const todoDivMaker = () => {
+    let newTodo = makeTodo();
+
+    let todoDiv = document.createElement('li');
+    todoDiv.innerHTML = `<div><input type="checkbox"><p>${newTodo.title}</p></div><div><p>${newTodo.dueDate}`;
+
+    homeContent.todoUl.appendChild(todoDiv);
+}
 
 

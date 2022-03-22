@@ -52,6 +52,7 @@ const homeContentDefault = () => {
     let svgAddButton = document.createElement('button');
         svgAddButton.textContent = "ADD";
         svgAddButton.classList = "svg-button";
+        /* svgAddButton.setAttribute('onclick', 'todoDivMaker()'); */
         svgButtonsDiv.appendChild(svgAddButton);
 
     let svgExitButton = document.createElement('button');
@@ -86,7 +87,7 @@ svgExitButton.addEventListener('click', () => {
         todoUl.appendChild(elementToAdd);
     }
 
-    return {anchorDiv, addContent, inputList};
+    return {anchorDiv, addContent, inputList, svgAddButton, todoUl, ghostDiv, svgButtonsDiv};
 
 };
 
@@ -95,10 +96,44 @@ const homeContent = homeContentDefault();
 export {homeContent};
 
 
-let mock = document.createElement('p');
-mock.textContent = "some added content";
 
-homeContent.addContent(mock)
+//! the object/div maker is currently under construction.
+//it is here for testing purposes, might add them into the homeContentDefault() function.
+
+
+const makeTodo = () => {   //todo pending: need to algeabrize this.
+    let todo = {
+        title: homeContent.inputList[0].value,
+        description: homeContent.inputList[1].value,
+        dueDate: homeContent.inputList[2].value,
+        project: homeContent.inputList[3].value,
+    }
+
+    return todo;
+}
+
+
+const todoDivMaker = () => {
+    let newTodo = makeTodo();
+
+    let todoDiv = document.createElement('li');
+
+    let titleP = document.createElement('p');
+    titleP.textContent = `${newTodo.title}`;
+    todoDiv.appendChild(titleP);
+
+    let dateP = document.createElement('p');
+    dateP.textContent = `${newTodo.dueDate}`;
+    todoDiv.appendChild(dateP);
+
+    homeContent.todoUl.appendChild(todoDiv);
+}
+
+homeContent.svgAddButton.addEventListener('click', () =>{
+    todoDivMaker();
+    homeContent.ghostDiv.style.display = "none";
+    homeContent.svgButtonsDiv.style.display = "none";
+})
 
 
 
