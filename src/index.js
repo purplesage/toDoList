@@ -33,17 +33,17 @@ const basicConfigStuff = (() => { //default content and elements for the tabchan
 //*Tab changing logic:-------------------------- (now algeabrized!)
 
 
-const tabChangingLogic = (domElements, capsule, targetDiv) => {
+const tabChangingLogic = (domListElements, contentCapsule, targetDiv, eraseElement) => {
 
     if (domElements.length === capsule.length) {
 
-        for (let i = 0; i < domElements.length; i++) {
+        for (let i = 0; i < domListElements.length; i++) {
 
-            domElements[i].addEventListener('click', () => {
+            domListElements[i].addEventListener('click', () => {
                 
-                let currentContent = document.getElementById('anchor-div-id');
+                let currentContent = document.getElementById(eraseElement);
                     targetDiv.removeChild(currentContent);
-                    targetDiv.appendChild(capsule[i]);
+                    targetDiv.appendChild(contentCapsule[i]);
             });
         }
     }else{
@@ -51,7 +51,7 @@ const tabChangingLogic = (domElements, capsule, targetDiv) => {
     }
 };
 
-tabChangingLogic(basicConfigStuff.tasks, contentCapsule(), basicConfigStuff.rootDiv);
+tabChangingLogic(basicConfigStuff.tasks, contentCapsule(), basicConfigStuff.rootDiv, 'anchor-div-id');
 
 
 
