@@ -1,3 +1,4 @@
+import { divMakerEventListener } from './todoMaker.js'
 const todayContentDefault = () => {
 
     let anchorDiv = document.createElement('div');
@@ -9,13 +10,14 @@ const todayContentDefault = () => {
         todoUl.classList = "todo-ul-class";
     
     let ulHeader = document.createElement('li');
-        ulHeader.innerHTML = "<h3>home</h3><h3>Due Date</h3>";
+        ulHeader.innerHTML = "<h3>today</h3><h3>Due Date</h3>";
         ulHeader.classList = "ul-header";
 
     //*addTask button and todo-settings ghost div content here-----------------
 
     let ghostDiv = document.createElement('div');
-        ghostDiv.classList = "ghost-div";
+    ghostDiv.classList = "ghost-div";
+
 
     let addTaskButton = document.createElement('div');
         addTaskButton.textContent = "Add Task";
@@ -30,13 +32,18 @@ const todayContentDefault = () => {
         todoSettingsDescription.setAttribute('type', 'text');
         todoSettingsDescription.setAttribute('placeholder', 'eg: description example');
         ghostDiv.appendChild(todoSettingsDescription);
+    
+    let inputList = ghostDiv.getElementsByTagName('input'); //used for makeTodo() function.
 
-    let dueDateButton = document.createElement('button');
-        dueDateButton.textContent = "Due Date";
+    let dueDateButton = document.createElement('input');
+    dueDateButton.setAttribute('type', 'date');
+   /*  dueDateButton.setAttribute('placeholder', 'eg: description example'); */
+   dueDateButton.textContent = "Due date";
         ghostDiv.appendChild(dueDateButton);
     
-    let projectNameButton = document.createElement('button');
-        projectNameButton.textContent = "Project name";
+    let projectNameButton = document.createElement('input');
+    projectNameButton.setAttribute('type', 'text');
+    projectNameButton.setAttribute('placeholder', 'project name');
         ghostDiv.appendChild(projectNameButton);
     
     let svgButtonsDiv = document.createElement('div');
@@ -45,12 +52,16 @@ const todayContentDefault = () => {
     let svgAddButton = document.createElement('button');
         svgAddButton.textContent = "ADD";
         svgAddButton.classList = "svg-button";
+        /* svgAddButton.setAttribute('onclick', 'todoDivMaker()'); */
         svgButtonsDiv.appendChild(svgAddButton);
 
     let svgExitButton = document.createElement('button');
         svgExitButton.textContent = "EXIT";
         svgExitButton.classList = "svg-button";
         svgButtonsDiv.appendChild(svgExitButton);
+
+    
+
 
 //*ghostDiv reveal event listener.
     addTaskButton.addEventListener('click', () => {
@@ -76,9 +87,12 @@ svgExitButton.addEventListener('click', () => {
         todoUl.appendChild(elementToAdd);
     }
 
-    return {anchorDiv, addContent};
+    return {anchorDiv, addContent, inputList, svgAddButton, ghostDiv, svgButtonsDiv};
+
 };
 
 const todayContent = todayContentDefault();
+
+divMakerEventListener(todayContent);
 
 export {todayContent};
