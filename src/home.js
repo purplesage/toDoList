@@ -1,4 +1,4 @@
-
+import { divMakerEventListener } from './todoMaker.js'
 const homeContentDefault = () => {
 
     let anchorDiv = document.createElement('div');
@@ -87,7 +87,7 @@ svgExitButton.addEventListener('click', () => {
         todoUl.appendChild(elementToAdd);
     }
 
-    return {anchorDiv, addContent, inputList, svgAddButton, todoUl, ghostDiv, svgButtonsDiv};
+    return {anchorDiv, addContent, inputList, svgAddButton, ghostDiv, svgButtonsDiv};
 
 };
 
@@ -95,64 +95,7 @@ const homeContent = homeContentDefault();
 
 export {homeContent};
 
-
-
-//! the object/div maker is currently under construction.------------------------
-//it is here for testing purposes, might add them into the homeContentDefault() function.
-// one solution is to make these functions into a separate file and then import them into each content div file. need to algeabrize them first.
-
-
-const makeTodo = () => {   //todo pending: need to algeabrize this.
-    let todo = {
-        title: homeContent.inputList[0].value,
-        description: homeContent.inputList[1].value,
-        dueDate: homeContent.inputList[2].value,
-        project: homeContent.inputList[3].value,
-    }
-
-    return todo;
-}
-
-
-const todoDivMaker = () => {
-    let newTodo = makeTodo();
-
-    let todoDiv = document.createElement('li');
-
-    let titleP = document.createElement('p');
-    titleP.textContent = `${newTodo.title}`;
-    todoDiv.appendChild(titleP);
-
-    let dateP = document.createElement('p');
-    dateP.textContent = `${newTodo.dueDate}`;
-    todoDiv.appendChild(dateP);
-
-    homeContent.todoUl.appendChild(todoDiv);
-}
-
-homeContent.svgAddButton.addEventListener('click', () =>{
-    todoDivMaker();
-    homeContent.ghostDiv.style.display = "none";
-    homeContent.svgButtonsDiv.style.display = "none";
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+divMakerEventListener(homeContent);
 
 
 
