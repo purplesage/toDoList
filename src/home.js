@@ -93,8 +93,6 @@ const homeContent = homeContentDefault();
 
 export {homeContent};
 
-/* divMakerEventListener(homeContent);
- */
 
 
 

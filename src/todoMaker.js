@@ -1,4 +1,7 @@
-import {isValid, format} from 'date-fns';
+import {format, addDays, isThisWeek } from 'date-fns';
+import { homeContent } from './home';
+import { todayContent } from './today';
+import { weekContent } from './week';
 let todoDataBase = [];
 
 const makeTodo = (contentInstance) => { 
@@ -16,6 +19,7 @@ const makeTodo = (contentInstance) => {
 const todoDivMaker = (contentInstance) => {
     let newTodo = makeTodo(contentInstance);
     let todoDiv;
+    let today = format(new Date(), "dd/MM/yyyy");
     todoDataBase.push(newTodo); //sends todo to the database.
 
     for (let i = 0; i < todoDataBase.length; i++) {
@@ -24,17 +28,25 @@ const todoDivMaker = (contentInstance) => {
             todoDiv = document.createElement('li');
 
             let titleP = document.createElement('p');
-            titleP.textContent = `${todoDataBase[i].title}`;
-            todoDiv.appendChild(titleP);
+                titleP.textContent = `${todoDataBase[i].title}`;
+                todoDiv.appendChild(titleP);
         
             let dateP = document.createElement('p');
-            dateP.textContent = `${todoDataBase[i].dueDate}`;
-            todoDiv.appendChild(dateP);
+                dateP.textContent = `${todoDataBase[i].dueDate}`;
+                todoDiv.appendChild(dateP);
 
             todoDataBase[i].divMade = true;
 
             //distribuitor goes here
-            contentInstance.addContent(todoDiv); 
+                homeContent.addContent(todoDiv);
+
+            if (todoDataBase[i].dueDate === today){
+                todayContent.addContent(todoDiv);
+            }
+            
+            if (isThisWeek(todoDataBase[i].dueDate) === true) {
+                weekContent.addContent(todoDiv);
+            }
 
         }else{
             continue;
@@ -57,6 +69,6 @@ const divMakerEventListener = (contentInstance) => {
     if todoObject.dueDate = //some stuff
 }; */
 
-console.log(isValid(new Date("2022-03-17")));
-
 export { divMakerEventListener };
+
+console.log(isThisWeek(new Date()));

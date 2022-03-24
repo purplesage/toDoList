@@ -93,6 +93,5 @@ svgExitButton.addEventListener('click', () => {
 
 const weekContent = weekContentDefault();
 
-divMakerEventListener(weekContent);
 
 export {weekContent};
