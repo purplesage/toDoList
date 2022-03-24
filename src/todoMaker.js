@@ -1,28 +1,46 @@
+import {isValid, format} from 'date-fns';
+let todoDataBase = [];
+
 const makeTodo = (contentInstance) => { 
     let todo = {
+        divMade: false,
+        dueDate: format(new Date(contentInstance.inputList[2].value), "dd/MM/yyyy"),
         title: contentInstance.inputList[0].value,
         description: contentInstance.inputList[1].value,
-        dueDate: contentInstance.inputList[2].value,
-        project: contentInstance.inputList[3].value,
-    }
+        projectName: contentInstance.inputList[3].value,
+    };
 
     return todo;
-}
+};
 
 const todoDivMaker = (contentInstance) => {
     let newTodo = makeTodo(contentInstance);
+    let todoDiv;
+    todoDataBase.push(newTodo); //sends todo to the database.
 
-    let todoDiv = document.createElement('li');
+    for (let i = 0; i < todoDataBase.length; i++) {
 
-    let titleP = document.createElement('p');
-    titleP.textContent = `${newTodo.title}`;
-    todoDiv.appendChild(titleP);
+        if (todoDataBase[i].divMade === false) {
+            todoDiv = document.createElement('li');
 
-    let dateP = document.createElement('p');
-    dateP.textContent = `${newTodo.dueDate}`;
-    todoDiv.appendChild(dateP);
+            let titleP = document.createElement('p');
+            titleP.textContent = `${todoDataBase[i].title}`;
+            todoDiv.appendChild(titleP);
+        
+            let dateP = document.createElement('p');
+            dateP.textContent = `${todoDataBase[i].dueDate}`;
+            todoDiv.appendChild(dateP);
 
-    contentInstance.addContent(todoDiv);
+            todoDataBase[i].divMade = true;
+
+            //distribuitor goes here
+            contentInstance.addContent(todoDiv); 
+
+        }else{
+            continue;
+        };
+    }
+    
 }
 
 const divMakerEventListener = (contentInstance) => {
@@ -33,5 +51,12 @@ const divMakerEventListener = (contentInstance) => {
         contentInstance.svgButtonsDiv.style.display = "none";
     });
 }
+
+/* const todoDivDistribuitor = (todoObject) => {
+
+    if todoObject.dueDate = //some stuff
+}; */
+
+console.log(isValid(new Date("2022-03-17")));
 
 export { divMakerEventListener };

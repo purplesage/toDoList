@@ -3,6 +3,7 @@ import { homeContent } from './home';
 import { todayContent } from './today';
 import { weekContent } from './week';
 import { projectsContent } from './projects';
+import { divMakerEventListener } from './todoMaker.js'
 
 
 //*content capsule-----------------
@@ -41,8 +42,8 @@ const tabChangingLogic = (domListElements, contentCapsule, targetDiv, eraseEleme
 
             domListElements[i].addEventListener('click', () => {
                 
-                let currentContent = document.getElementById(eraseElement);
-                    targetDiv.removeChild(currentContent);
+                let currentContentToErase = document.getElementById(eraseElement);
+                    targetDiv.removeChild(currentContentToErase);
                     targetDiv.appendChild(contentCapsule[i]);
             });
         }
@@ -53,7 +54,7 @@ const tabChangingLogic = (domListElements, contentCapsule, targetDiv, eraseEleme
 
 tabChangingLogic(basicConfigStuff.tasks, contentCapsule(), basicConfigStuff.rootDiv, 'anchor-div-id');
 
-//*---------todo object maker-------------------------------------
+divMakerEventListener(homeContent);
 
 
 
