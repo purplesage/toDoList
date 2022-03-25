@@ -1,5 +1,4 @@
-/* import { divMakerEventListener } from './todoMaker.js' */
-const homeContentDefault = () => {
+const homeContentDefault = () => {  //todo: turn this into a module. (IIFE);
 
     let anchorDiv = document.createElement('div');
         anchorDiv.classList = "anchor-div";
@@ -57,8 +56,6 @@ const homeContentDefault = () => {
         svgExitButton.textContent = "EXIT";
         svgExitButton.classList = "svg-button";
         svgButtonsDiv.appendChild(svgExitButton);
-
-    
 
 
 //*ghostDiv reveal event listener.

@@ -1,4 +1,4 @@
-import { divMakerEventListener } from './todoMaker.js'
+
 const todayContentDefault = () => {
 
     let anchorDiv = document.createElement('div');
@@ -36,9 +36,8 @@ const todayContentDefault = () => {
     let inputList = ghostDiv.getElementsByTagName('input'); //used for makeTodo() function.
 
     let dueDateButton = document.createElement('input');
-    dueDateButton.setAttribute('type', 'date');
-   /*  dueDateButton.setAttribute('placeholder', 'eg: description example'); */
-   dueDateButton.textContent = "Due date";
+        dueDateButton.setAttribute('type', 'date');
+        dueDateButton.textContent = "Due date";
         ghostDiv.appendChild(dueDateButton);
     
     let projectNameButton = document.createElement('input');
@@ -52,7 +51,6 @@ const todayContentDefault = () => {
     let svgAddButton = document.createElement('button');
         svgAddButton.textContent = "ADD";
         svgAddButton.classList = "svg-button";
-        /* svgAddButton.setAttribute('onclick', 'todoDivMaker()'); */
         svgButtonsDiv.appendChild(svgAddButton);
 
     let svgExitButton = document.createElement('button');
@@ -93,6 +91,5 @@ svgExitButton.addEventListener('click', () => {
 
 const todayContent = todayContentDefault();
 
-divMakerEventListener(todayContent);
-
 export {todayContent};
+

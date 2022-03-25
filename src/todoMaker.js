@@ -1,14 +1,16 @@
-import {format, addDays, isThisWeek } from 'date-fns';
+import {format, isThisWeek, addDays, parseISO } from 'date-fns';
 import { homeContent } from './home';
 import { todayContent } from './today';
 import { weekContent } from './week';
+
+//todo: database (this will use localstorage in the future)
 let todoDataBase = [];
+//--------------------------------------------------------
 
 const makeTodo = (contentInstance) => { 
     let todo = {
         divMade: false,
-        dueDate: format(new Date(contentInstance.inputList[2].value), "dd/MM/yyyy"),
-        title: contentInstance.inputList[0].value,
+        dueDate: format(new Date(parseISO(contentInstance.inputList[2].value)), "MM/dd/yyyy"),
         description: contentInstance.inputList[1].value,
         projectName: contentInstance.inputList[3].value,
     };
@@ -19,9 +21,9 @@ const makeTodo = (contentInstance) => {
 const todoDivMaker = (contentInstance) => {
     let newTodo = makeTodo(contentInstance);
     let todoDiv;
-    let today = format(new Date(), "dd/MM/yyyy");
+    let today = format(new Date(), "MM/dd/yyyy");
     todoDataBase.push(newTodo); //sends todo to the database.
-
+    console.log(`this is it: ${newTodo.dueDate}`);
     for (let i = 0; i < todoDataBase.length; i++) {
 
         if (todoDataBase[i].divMade === false) {
@@ -34,26 +36,28 @@ const todoDivMaker = (contentInstance) => {
             let dateP = document.createElement('p');
                 dateP.textContent = `${todoDataBase[i].dueDate}`;
                 todoDiv.appendChild(dateP);
-
-            todoDataBase[i].divMade = true;
-
-            //distribuitor goes here
-                homeContent.addContent(todoDiv);
-
+                
+            //task div distribuitor goes here
+             //all tasks go into home.
+             homeContent.addContent(todoDiv);
+            
             if (todoDataBase[i].dueDate === today){
                 todayContent.addContent(todoDiv);
-            }
+            };
             
             if (isThisWeek(todoDataBase[i].dueDate) === true) {
                 weekContent.addContent(todoDiv);
-            }
+                homeContent.addContent(todoDiv);
+                
+            };
+            
+            todoDataBase[i].divMade = true;
 
         }else{
             continue;
         };
     }
-    
-}
+};
 
 const divMakerEventListener = (contentInstance) => {
 
@@ -62,13 +66,7 @@ const divMakerEventListener = (contentInstance) => {
         contentInstance.ghostDiv.style.display = "none";
         contentInstance.svgButtonsDiv.style.display = "none";
     });
-}
+};
 
-/* const todoDivDistribuitor = (todoObject) => {
 
-    if todoObject.dueDate = //some stuff
-}; */
-
-export { divMakerEventListener };
-
-console.log(isThisWeek(new Date()));
+export {divMakerEventListener, todoDataBase};
