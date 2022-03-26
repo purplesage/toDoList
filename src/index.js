@@ -3,7 +3,7 @@ import { homeContent } from './home';
 import { todayContent } from './today';
 import { weekContent } from './week';
 import { projectsContent } from './projects';
-import {divMakerEventListener}  from './todoMaker.js'
+import { divMakerEventListener }  from './todoMaker.js'
 
 //*content capsule-----------------
 
@@ -27,8 +27,6 @@ const basicConfigStuff = (() => { //default content and elements for the tabchan
     return {rootDiv, tasks};
 
 })();
-
-
 
 //*Tab changing logic:-------------------------- (now algeabrized!)
 
@@ -56,6 +54,8 @@ tabChangingLogic(basicConfigStuff.tasks, contentCapsule(), basicConfigStuff.root
 divMakerEventListener(homeContent);
 divMakerEventListener(todayContent);
 divMakerEventListener(weekContent);
+
+
 
 
 
