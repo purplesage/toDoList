@@ -15,7 +15,7 @@ const makeTodo = (contentInstance) => {
         description: contentInstance.inputList[1].value,
         projectName: contentInstance.inputList[3].value,
     };
-    console.log(isThisWeek(todo.dueDate));
+
     return todo;
 };
 
@@ -49,7 +49,7 @@ const divMakerEventListener = (contentInstance) => {
             todayContent.addContent(todoDivMaker(contentInstance).todoDiv);
         };
 
-        if (isThisWeek(todoDivMaker(contentInstance).newTodo.dueDate ) === true) {
+        if (isThisWeek(new Date(todoDivMaker(contentInstance).newTodo.dueDate)) === true) {
             weekContent.addContent(todoDivMaker(contentInstance).todoDiv);
         };
 
@@ -58,25 +58,12 @@ const divMakerEventListener = (contentInstance) => {
     });
 };
 
-console.log(isThisWeek(new Date()))
+
+
 export {divMakerEventListener};
 
 
 
- //task div distribuitor goes here
-             //all tasks go into home. //! currently fixing this
-             
-            
-            /* if (todoDataBase[i].dueDate === today){
-                todayContent.addContent(todoDiv);
-                homeContent.addContent(todoDiv);
-            };
-             */
-            /* if (isThisWeek(todoDataBase[i].dueDate) === true) {
-                weekContent.addContent(todoDiv);
-                homeContent.addContent(todoDiv);
-                
-            }; */
 //!----------will be used for onload function----------------------
             /* for (let i = 0; i < todoDataBase.length; i++) {
 
