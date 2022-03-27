@@ -20,11 +20,11 @@ const basicConfigStuff = (() => { //default content and elements for the tabchan
 
     const rootDiv = document.getElementById('main-grid-id'); //target div
 
-    const tasks = document.getElementById('todo-elements').getElementsByTagName('li');//domElements
+    const liElements = document.getElementById('todo-elements').getElementsByTagName('li');//domElements
 
     rootDiv.appendChild(homeContent.anchorDiv); //default content
 
-    return {rootDiv, tasks};
+    return {rootDiv, liElements};
 
 })();
 
@@ -49,7 +49,7 @@ const tabChangingLogic = (domListElements, contentCapsule, targetDiv, eraseEleme
     }
 };
 
-tabChangingLogic(basicConfigStuff.tasks, contentCapsule(), basicConfigStuff.rootDiv, 'anchor-div-id');
+tabChangingLogic(basicConfigStuff.liElements, contentCapsule(), basicConfigStuff.rootDiv, 'anchor-div-id');
 
 divMakerEventListener(homeContent);
 divMakerEventListener(todayContent);
