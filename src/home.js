@@ -1,4 +1,4 @@
-const homeContentDefault = () => {  //todo: turn this into a module. (IIFE);
+const homeContentDefault = () => {
 
     let anchorDiv = document.createElement('div');
         anchorDiv.classList = "anchor-div";
@@ -15,7 +15,7 @@ const homeContentDefault = () => {  //todo: turn this into a module. (IIFE);
     //*addTask button and todo-settings ghost div content here-----------------
 
     let ghostDiv = document.createElement('div');
-    ghostDiv.classList = "ghost-div";
+        ghostDiv.classList = "ghost-div";
 
 
     let addTaskButton = document.createElement('div');
@@ -40,8 +40,8 @@ const homeContentDefault = () => {  //todo: turn this into a module. (IIFE);
         ghostDiv.appendChild(dueDateButton);
     
     let projectNameButton = document.createElement('input');
-    projectNameButton.setAttribute('type', 'text');
-    projectNameButton.setAttribute('placeholder', 'project name');
+        projectNameButton.setAttribute('type', 'text');
+        projectNameButton.setAttribute('placeholder', 'project name');
         ghostDiv.appendChild(projectNameButton);
     
     let svgButtonsDiv = document.createElement('div');
@@ -82,13 +82,13 @@ svgExitButton.addEventListener('click', () => {
         todoUl.appendChild(elementToAdd);
     }
 
-    return Object.assign({}, {anchorDiv, addContent, inputList, svgAddButton, ghostDiv, svgButtonsDiv});
+    return Object.assign({}, {anchorDiv, addContent, inputList, svgAddButton, ghostDiv, svgButtonsDiv, ulHeader});
 
 };
 
-const homeContent = homeContentDefault();
+let homeContent = homeContentDefault();
 
-export {homeContent};
+export {homeContent, homeContentDefault};
 
 
 

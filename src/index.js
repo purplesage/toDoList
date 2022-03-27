@@ -3,7 +3,7 @@ import { homeContent } from './home';
 import { todayContent } from './today';
 import { weekContent } from './week';
 import { projectsContent } from './projects';
-import { divMakerEventListener }  from './todoMaker.js'
+import { addTaskButtonLogic }  from './todoMaker.js'
 
 //*content capsule-----------------
 
@@ -51,9 +51,10 @@ const tabChangingLogic = (domListElements, contentCapsule, targetDiv, eraseEleme
 
 tabChangingLogic(basicConfigStuff.liElements, contentCapsule(), basicConfigStuff.rootDiv, 'anchor-div-id');
 
-divMakerEventListener(homeContent);
-divMakerEventListener(todayContent);
-divMakerEventListener(weekContent);
+addTaskButtonLogic(homeContent).divMakerEventListener();
+addTaskButtonLogic(todayContent).divMakerEventListener();
+addTaskButtonLogic(weekContent).divMakerEventListener();
+
 
 
 
