@@ -2,7 +2,7 @@ import './styles/index.scss';
 import { homeContent } from './home';
 import { todayContent } from './today';
 import { weekContent } from './week';
-import { projectsContent } from './projects';
+import { projectContent } from './projects';
 import { addTaskButtonLogic }  from './todoMaker.js'
 
 //*content capsule-----------------
@@ -11,9 +11,9 @@ const contentCapsule = () =>{
     let home = homeContent.anchorDiv;
     let today = todayContent.anchorDiv; 
     let week = weekContent.anchorDiv;
-    let projects = projectsContent.anchorDiv;
+    
 
-    return [home, today, week, projects];
+    return [home, today, week];
 };
 
 const basicConfigStuff = (() => { //default content and elements for the tabchanginglogic function.
@@ -28,7 +28,7 @@ const basicConfigStuff = (() => { //default content and elements for the tabchan
 
 })();
 
-//*Tab changing logic:-------------------------- (now algeabrized!)
+//*Tab changing logic:--------------------------(now algeabrized!)
 
 
 const tabChangingLogic = (domListElements, contentCapsule, targetDiv, eraseElement) => {
@@ -54,6 +54,25 @@ tabChangingLogic(basicConfigStuff.liElements, contentCapsule(), basicConfigStuff
 addTaskButtonLogic(homeContent).divMakerEventListener();
 addTaskButtonLogic(todayContent).divMakerEventListener();
 addTaskButtonLogic(weekContent).divMakerEventListener();
+
+
+
+//*Adding event listener to created projects and adding them into the root div.
+const newProjectMaker = () => {
+    let newProjectDefaultContent = projectContent();
+    newProjectDefaultContent.defaultContent.ulHeader.innerHTML = `<h3>project name</h3><h3>Due Date</h3>`;
+    basicConfigStuff.rootDiv.appendChild(newProjectDefaultContent.defaultContent.anchorDiv);
+    addTaskButtonLogic(newProjectDefaultContent).divMakerEventListener(); 
+
+    let projectTabs = document.getElementById('project-list');
+
+    let newProjectTab = document.createElement('li');
+    newProjectTab.textContent = `${addTaskButtonLogic().divMakerEventListener().newTodo.projectName}`;
+
+    projectTabs.appendChild(newProjectTab);
+}
+
+export {newProjectMaker};
 
 
 

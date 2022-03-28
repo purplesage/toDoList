@@ -1,23 +1,19 @@
-const projectsContentDefault = () => {
+import { homeContentDefault } from "./home";
 
-    let contentDiv = document.createElement('ul');
-    contentDiv.setAttribute('id', 'todo-ul');
-    contentDiv.classList = "todo-ul-class";
-    
-    let ulHeader = document.createElement('li');
-    ulHeader.innerHTML = "<h3>home<span>Due Date<span></h3>";
+const projectContent = () =>  {
 
-    contentDiv.appendChild(ulHeader);
+    const defaultContent = homeContentDefault();
 
-    const addContent = (elementToAdd) => {
-        contentDiv.appendChild(elementToAdd);
-    }
 
-    return {contentDiv, addContent};
+    /* let projectTabs = document.getElementById('project-list');
 
+    let newProjectTab = document.createElement('li');
+    newProjectTab.textContent = `${newTodo.projectName}`;
+
+    projectTabs.appendChild(newProjectTab);
+    */
+
+    return {defaultContent};
 };
 
-const projectsContent = projectsContentDefault();
-
-
-export {projectsContent};
+export {projectContent};

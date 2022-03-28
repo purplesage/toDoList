@@ -1,7 +1,9 @@
 import {format, isThisWeek, parseISO } from 'date-fns';
-import { homeContent } from './home';
+import { homeContent, homeContentDefault } from './home';
 import { todayContent } from './today';
 import { weekContent } from './week';
+import {newProjectMaker} from './index';
+
 
 //todo: database (this will use localstorage in the future)
 //todo: This module works, but its very messy, need to refactor this to increase readability.
@@ -37,9 +39,12 @@ const addTaskButtonLogic = (contentInstance) => {
         let dateP = document.createElement('p');
             dateP.textContent = `${format(newTodo.dueDate, "MM/dd/yyyy")}`;
             todoDiv.appendChild(dateP);
-    
-    return {todoDiv, newTodo};
-    
+
+        if (newTodo.projectName !== "") {
+            newProjectMaker();
+        }
+
+            return {todoDiv, newTodo};
     };
 
     const divMakerEventListener = () => {
@@ -61,9 +66,9 @@ const addTaskButtonLogic = (contentInstance) => {
             };
     
             //? note : isThisWeek() bugs out if given a formated new Date() object, so i needed to convert back the formated date into a new Date and it worked for some reason. I have no idea why. But it works.
-    
-            //todo: sundays dont seem to count as 'this week', need to fix that.
-            //note: sundays seem to be the first day of the week. that's why it doesn't works.
+
+        
+            //note: sundays are the first day of the week!
     
             if (isThisWeek(new Date(todoDivMaker(contentInstance).newTodo.dueDate)) === true) {
                 weekContent.addContent(todoDivMaker(contentInstance).todoDiv);
@@ -76,7 +81,9 @@ const addTaskButtonLogic = (contentInstance) => {
         });
     };
 
-return {divMakerEventListener}
+
+
+return {divMakerEventListener};
 
 };
 
