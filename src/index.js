@@ -49,6 +49,16 @@ const tabChangingLogic = (domListElements, contentCapsule, targetDiv, eraseEleme
     }
 };
 
+const projectTabChangingLogic = (domListElement, content, targetDiv, eraseElement) => {
+    domListElement.addEventListener('click', () => {
+        let currentContentToErase = document.getElementById(eraseElement);
+        targetDiv.removeChild(currentContentToErase);
+        targetDiv.appendChild(content);
+
+    });
+
+}
+
 tabChangingLogic(basicConfigStuff.liElements, contentCapsule(), basicConfigStuff.rootDiv, 'anchor-div-id');
 
 addTaskButtonLogic(homeContent).divMakerEventListener();
@@ -57,11 +67,10 @@ addTaskButtonLogic(weekContent).divMakerEventListener();
 
 
 
-//*Adding event listener to created projects and adding them into the root div.
+//! remember to erase this function.
 const newProjectMaker = () => {
     let newProjectDefaultContent = projectContent();
     newProjectDefaultContent.defaultContent.ulHeader.innerHTML = `<h3>project name</h3><h3>Due Date</h3>`;
-    basicConfigStuff.rootDiv.appendChild(newProjectDefaultContent.defaultContent.anchorDiv);
     addTaskButtonLogic(newProjectDefaultContent).divMakerEventListener(); 
 
     let projectTabs = document.getElementById('project-list');
@@ -69,10 +78,12 @@ const newProjectMaker = () => {
     let newProjectTab = document.createElement('li');
     newProjectTab.textContent = `${addTaskButtonLogic().divMakerEventListener().newTodo.projectName}`;
 
+    tabChangingLogic(newProjectTab, newProjectDefaultContent, basicConfigStuff.rootDiv, 'anchor-div-id');
+
     projectTabs.appendChild(newProjectTab);
 }
 
-export {newProjectMaker};
+export {projectTabChangingLogic};
 
 
 

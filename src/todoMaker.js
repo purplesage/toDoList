@@ -1,8 +1,9 @@
 import {format, isThisWeek, parseISO } from 'date-fns';
-import { homeContent, homeContentDefault } from './home';
+import { homeContent } from './home';
 import { todayContent } from './today';
 import { weekContent } from './week';
-import {newProjectMaker} from './index';
+import {projectContent} from './projects';
+import {projectTabChangingLogic} from './index';
 
 
 //todo: database (this will use localstorage in the future)
@@ -41,10 +42,27 @@ const addTaskButtonLogic = (contentInstance) => {
             todoDiv.appendChild(dateP);
 
         if (newTodo.projectName !== "") {
-            newProjectMaker();
-        }
 
-            return {todoDiv, newTodo};
+            const newProject = () => {
+                let newProjectContentDisplay = projectContent();
+                newProjectContentDisplay.defaultContent.ulHeader.innerHTML = `<h3>${newTodo.projectName}</h3><h3>Due Date</h3>`;
+    
+                const rootDiv = document.getElementById('main-grid-id');
+                
+                let projectTabs = document.getElementById('project-list');
+                
+                let newTab = document.createElement('li');
+                newTab.textContent = `${newTodo.projectName}`;
+                projectTabs.appendChild(newTab);
+    
+                projectTabChangingLogic(newTab, newProjectContentDisplay.defaultContent.anchorDiv, rootDiv, 'anchor-div-id');
+
+                return {newProjectContentDisplay};
+            }
+
+            return {todoDiv, newTodo, newProject};
+        
+        }else{return {todoDiv, newTodo}};    
     };
 
     const divMakerEventListener = () => {
@@ -73,6 +91,12 @@ const addTaskButtonLogic = (contentInstance) => {
             if (isThisWeek(new Date(todoDivMaker(contentInstance).newTodo.dueDate)) === true) {
                 weekContent.addContent(todoDivMaker(contentInstance).todoDiv);
             };
+
+            //todo: project todo appending (under construction!)
+            if (todoDivMaker(contentInstance).newTodo.projectName !== "") {
+                todoDivMaker().newProject().newProjectContentDisplay.defaultContent.addContent(todoDivMaker(contentInstance).todoDiv);
+
+            }
 
             //*-----------------------------------------------------
     
