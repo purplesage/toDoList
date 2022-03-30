@@ -1,4 +1,12 @@
-const homeContentDefault = () => {
+import { makeTodo } from "./todoMaker";
+
+const addTaskButtonLogic = () => {
+
+};
+
+
+
+const defaultContent = () => {
 
     let anchorDiv = document.createElement('div');
         anchorDiv.classList = "anchor-div";
@@ -9,14 +17,13 @@ const homeContentDefault = () => {
         todoUl.classList = "todo-ul-class";
     
     let ulHeader = document.createElement('li');
-        ulHeader.innerHTML = "<h3>home</h3><h3>Due Date</h3>";
+        ulHeader.innerHTML = "<h3>Home</h3><h3>Due Date</h3>";
         ulHeader.classList = "ul-header";
 
     //*addTask button and todo-settings ghost div content here-----------------
 
     let ghostDiv = document.createElement('div');
         ghostDiv.classList = "ghost-div";
-
 
     let addTaskButton = document.createElement('div');
         addTaskButton.textContent = "Add Task";
@@ -86,9 +93,7 @@ svgExitButton.addEventListener('click', () => {
 
 };
 
-let homeContent = homeContentDefault();
-
-export {homeContent, homeContentDefault};
+export {defaultContent};
 
 
 

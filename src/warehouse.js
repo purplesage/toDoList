@@ -1,5 +1,7 @@
 import {format, isThisWeek, parseISO } from 'date-fns';
-import {home, today, week} from './index';
+import {contentCapsule} from './index';
+
+
 
 //todo: database (this will use localstorage in the future)
 //todo: This module works, but its very messy, need to refactor this to increase readability.
@@ -7,6 +9,10 @@ let todoDataBase = [];
 let addedProjectsDataBase = [];
 //--------------------------------------------------------
 const addTaskButtonLogic = (contentInstance) => {
+
+    let homeContent = contentCapsule()[0];
+    let todayContent = contentCapsule()[1];
+    let weekContent = contentCapsule()[2];
 
     const makeTodo = () => { 
         let todo = {
@@ -66,7 +72,6 @@ const addTaskButtonLogic = (contentInstance) => {
 
     const divMakerEventListener = () => {
 
-
         let today = format(new Date(), "MM/dd/yyyy");
     
         contentInstance.svgAddButton.addEventListener('click', () =>{
@@ -74,14 +79,14 @@ const addTaskButtonLogic = (contentInstance) => {
     
     
             //* content distribution-----------------------------
-            home.addContent(todoDivMaker(contentInstance).todoDiv);
+            homeContent.addContent(todoDivMaker(contentInstance).todoDiv);
     
             /* this line is a little confusing, so ill explain it:
                 it is the formating of the date input taken by the date input in the 'addButton' ghost div. The reason that the function todoDivMaker is called here is because it returns the newTodo due date. It is used to check if the date of the input is equal to today's date. In that case, the new todo div will be appended to the 'today' content tab. 
             
             */
             if (format(todoDivMaker(contentInstance).newTodo.dueDate, "MM/dd/yyyy") === today){
-                today.addContent(todoDivMaker(contentInstance).todoDiv);
+                todayContent.addContent(todoDivMaker(contentInstance).todoDiv);
             };
     
             //? note : isThisWeek() bugs out if given a formated new Date() object, so i needed to convert back the formated date into a new Date and it worked for some reason. I have no idea why. But it works.
@@ -90,14 +95,14 @@ const addTaskButtonLogic = (contentInstance) => {
             //note: sundays are the first day of the week!
     
             if (isThisWeek(new Date(todoDivMaker(contentInstance).newTodo.dueDate)) === true) {
-                week.addContent(todoDivMaker(contentInstance).todoDiv);
+                weekContent.addContent(todoDivMaker(contentInstance).todoDiv);
             };
 
             //* Project todo appending.
-            /* if (todoDivMaker(contentInstance).newTodo.projectName !== "") {
+            if (todoDivMaker(contentInstance).newTodo.projectName !== "") {
                 todoDivMaker().newProject().newProjectContentDisplay.defaultContent.addContent(todoDivMaker(contentInstance).todoDiv);
 
-            } */
+            }
 
             //*-----------------------------------------------------
     
@@ -110,27 +115,30 @@ return {divMakerEventListener};
 
 };
 
-export {addTaskButtonLogic};
+//-----------------
 
+  /* if (newTodo.projectName !== "") {
 
-//!----------will be used for onload function----------------------
-            /* for (let i = 0; i < todoDataBase.length; i++) {
+            const newProject = () => {
+                let newProjectContentDisplay = projectContent();
+                newProjectContentDisplay.defaultContent.ulHeader.innerHTML = `<h3>${newTodo.projectName}</h3><h3>Due Date</h3>`;
+    
+                const rootDiv = document.getElementById('main-grid-id');
+                
+                let projectTabs = document.getElementById('project-list');
+                
+                let newTab = document.createElement('li');
+                newTab.textContent = `${newTodo.projectName}`;
+                projectTabs.appendChild(newTab);
+                
+                addedProjectsDataBase.push(newProjectContentDisplay)
+                projectTabChangingLogic(newTab, newProjectContentDisplay.defaultContent.anchorDiv, rootDiv, 'anchor-div-id');
 
-        if (todoDataBase[i].divMade === false) {
-
-            todoDiv = document.createElement('li');
-
-            let titleP = document.createElement('p');
-                titleP.textContent = `${todoDataBase[i].title}`;
-                todoDiv.appendChild(titleP);
-        
-            let dateP = document.createElement('p');
-                dateP.textContent = `${todoDataBase[i].dueDate}`;
-                todoDiv.appendChild(dateP);
             
-            todoDataBase[i].divMade = true;
 
-        }else{
-            continue;
-        };
-    } */
+                return {newProjectContentDisplay};
+            };
+
+        
+        }else{return {todoDiv, newTodo}};   */
+      

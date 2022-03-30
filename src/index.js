@@ -1,28 +1,32 @@
 import './styles/index.scss';
-import { homeContent } from './home';
-import { todayContent } from './today';
-import { weekContent } from './week';
-import { projectContent } from './projects';
+import { defaultContent } from './defaultContent';
 import { addTaskButtonLogic }  from './todoMaker.js'
 
+
 //*content capsule-----------------
+const addedProjectsDataBase = [];
+const contentCapsule = []; //for tab changing logic function. //also need to export this for the todo maker functions.
 
-const contentCapsule = () =>{
-    let home = homeContent.anchorDiv;
-    let today = todayContent.anchorDiv; 
-    let week = weekContent.anchorDiv;
-    
+export {home, today, week};
 
-    return [home, today, week];
-};
+const home = defaultContent();
+contentCapsule.push(home)
+
+const today = defaultContent()
+today.ulHeader.innerHTML = "<h3>Today</h3><h3>Due Date</h3>";
+contentCapsule.push(today)
+
+const week = defaultContent()
+week.ulHeader.innerHTML = "<h3>Week</h3><h3>Due Date</h3>";
+contentCapsule.push(week)
 
 const basicConfigStuff = (() => { //default content and elements for the tabchanginglogic function.
 
     const rootDiv = document.getElementById('main-grid-id'); //target div
 
-    const liElements = document.getElementById('todo-elements').getElementsByTagName('li');//domElements
+    const liElements = [...document.getElementById('todo-elements').getElementsByTagName('li')];//domElements
 
-    rootDiv.appendChild(homeContent.anchorDiv); //default content
+    rootDiv.appendChild(home.anchorDiv); //default content
 
     return {rootDiv, liElements};
 
@@ -41,7 +45,7 @@ const tabChangingLogic = (domListElements, contentCapsule, targetDiv, eraseEleme
                 
                 let currentContentToErase = document.getElementById(eraseElement);
                     targetDiv.removeChild(currentContentToErase);
-                    targetDiv.appendChild(contentCapsule[i]);
+                    targetDiv.appendChild(contentCapsule[i].anchorDiv);
             });
         }
     }else{
@@ -49,41 +53,25 @@ const tabChangingLogic = (domListElements, contentCapsule, targetDiv, eraseEleme
     }
 };
 
-const projectTabChangingLogic = (domListElement, content, targetDiv, eraseElement) => {
-    domListElement.addEventListener('click', () => {
-        let currentContentToErase = document.getElementById(eraseElement);
-        targetDiv.removeChild(currentContentToErase);
-        targetDiv.appendChild(content);
 
-    });
+tabChangingLogic(basicConfigStuff.liElements, contentCapsule, basicConfigStuff.rootDiv, 'anchor-div-id');
 
-}
-
-tabChangingLogic(basicConfigStuff.liElements, contentCapsule(), basicConfigStuff.rootDiv, 'anchor-div-id');
-
-addTaskButtonLogic(homeContent).divMakerEventListener();
-addTaskButtonLogic(todayContent).divMakerEventListener();
-addTaskButtonLogic(weekContent).divMakerEventListener();
+for (let i = 0; i < contentCapsule.length; i++) {
+    addTaskButtonLogic(contentCapsule[i]).divMakerEventListener();
+};
 
 
 
-//! remember to erase this function.
-const newProjectMaker = () => {
-    let newProjectDefaultContent = projectContent();
-    newProjectDefaultContent.defaultContent.ulHeader.innerHTML = `<h3>project name</h3><h3>Due Date</h3>`;
-    addTaskButtonLogic(newProjectDefaultContent).divMakerEventListener(); 
 
-    let projectTabs = document.getElementById('project-list');
 
-    let newProjectTab = document.createElement('li');
-    newProjectTab.textContent = `${addTaskButtonLogic().divMakerEventListener().newTodo.projectName}`;
 
-    tabChangingLogic(newProjectTab, newProjectDefaultContent, basicConfigStuff.rootDiv, 'anchor-div-id');
 
-    projectTabs.appendChild(newProjectTab);
-}
 
-export {projectTabChangingLogic};
+
+
+
+
+
 
 
 
