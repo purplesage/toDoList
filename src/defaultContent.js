@@ -1,5 +1,3 @@
-
-
 const defaultContent = () => {
 
     let anchorDiv = document.createElement('div');

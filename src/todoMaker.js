@@ -37,27 +37,31 @@ const addTaskButtonLogic = (contentInstance) => {
             dateP.textContent = `${format(newTodo.dueDate, "MM/dd/yyyy")}`;
             todoDiv.appendChild(dateP);
 
-        /* if (newTodo.projectName !== "") {
+
+        let todoDivObject = {
+            dueDate: newTodo.dueDate,
+            div: todoDiv,
+            projectName: newTodo.projectName,
+        };
+
+            todoDataBase.push(todoDivObject); //sends todo to the database.
+            
+            if (todoDivObject.projectName !== "") {
+
                 let projectTabs = document.getElementById('project-list');
                 
                 let newNavigationTab = document.createElement('li');
                 newNavigationTab.textContent = `${newTodo.projectName}`;
                 projectTabs.appendChild(newNavigationTab);
+
                  
-            } */
-
-            let todoDivObject = {
-                dueDate: newTodo.dueDate,
-                div: todoDiv,
-                projectName: newTodo.projectName,
-            };
-
-            todoDataBase.push(todoDivObject); //sends todo to the database.
+            }
 
             return todoDivObject;
         };
 
         const eventListener = () => {
+
 
             contentInstance.svgAddButton.addEventListener('click', () => {
 
@@ -69,6 +73,8 @@ const addTaskButtonLogic = (contentInstance) => {
 
                 contentInstance.ghostDiv.style.display = "none";
                 contentInstance.svgButtonsDiv.style.display = "none";
+
+                
     
             });
 
