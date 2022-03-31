@@ -5,12 +5,6 @@ import { todoDataBase } from './todoMaker';
 import { format, isThisWeek } from 'date-fns';
 
 
-
-//*content capsule-----------------
-const addedProjectsDataBase = [];
-const contentCapsule = []; //for tab changing logic function. //also need to export this for the todo maker functions.
-
-
 const rootDivContent = defaultContent();
 
 const basicConfigStuff = (() => { //default content and elements for the tabchanginglogic function.
@@ -37,15 +31,14 @@ const basicFilters = (() => {
             todoUl.querySelectorAll('li').forEach(n => n.remove());
             
             rootDivContent.ulHeader.innerHTML = `<h3>${basicConfigStuff.liElements[i].textContent}</h3><h3>Due Date</h3>`;
+
             //*------Homefilter------------------------------------------
 
             if (basicConfigStuff.liElements[i].textContent === 'Home') {
 
                 for (let h = 0; h < todoDataBase.length; h++) {
                     
-                    if (todoDataBase[h].isAppended === false){
-                        rootDivContent.addContent(todoDataBase[h].div);
-                    } 
+                    rootDivContent.addContent(todoDataBase[h].div);
                 }
             };
 
@@ -56,9 +49,7 @@ const basicFilters = (() => {
 
                 for (let t = 0; t < todayFilter.length; t++) {
                     
-                    if (todayFilter[t].isAppended === false){
-                        rootDivContent.addContent(todayFilter[t].div);
-                    }    
+                    rootDivContent.addContent(todayFilter[t].div);
                 }
             }
 
@@ -69,9 +60,7 @@ const basicFilters = (() => {
 
                 for (let w = 0; w < weekFilter.length; w++) {
                     
-                    if (weekFilter[w].isAppended === false){
-                        rootDivContent.addContent(weekFilter[w].div);
-                    }  
+                    rootDivContent.addContent(weekFilter[w].div);
                 }
             }
         });

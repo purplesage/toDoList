@@ -1,5 +1,5 @@
 
-import {format, isThisWeek, parseISO } from 'date-fns';
+import {format, parseISO } from 'date-fns';
 
 //todo: database (this will use localstorage in the future)
 //todo: This module works, but its very messy, need to refactor this to increase readability.
@@ -49,7 +49,7 @@ const addTaskButtonLogic = (contentInstance) => {
             let todoDivObject = {
                 dueDate: newTodo.dueDate,
                 div: todoDiv,
-                isAppended: false,
+                projectName: newTodo.projectName,
             };
 
             todoDataBase.push(todoDivObject); //sends todo to the database.
@@ -62,12 +62,17 @@ const addTaskButtonLogic = (contentInstance) => {
             contentInstance.svgAddButton.addEventListener('click', () => {
 
                 contentInstance.addContent(todoDivMaker().div);
+
+                for (let i = 0; i < contentInstance.inputList.length; i++) {
+                    contentInstance.inputList[i].value = "";
+                }
+
+                contentInstance.ghostDiv.style.display = "none";
+                contentInstance.svgButtonsDiv.style.display = "none";
     
             });
 
         } 
-        
-        
 
         return {todoDivMaker, eventListener}
 
@@ -75,25 +80,3 @@ const addTaskButtonLogic = (contentInstance) => {
 
 export {addTaskButtonLogic};
 
-
-//!----------will be used for onload function----------------------
-            /* for (let i = 0; i < todoDataBase.length; i++) {
-
-        if (todoDataBase[i].divMade === false) {
-
-            todoDiv = document.createElement('li');
-
-            let titleP = document.createElement('p');
-                titleP.textContent = `${todoDataBase[i].title}`;
-                todoDiv.appendChild(titleP);
-        
-            let dateP = document.createElement('p');
-                dateP.textContent = `${todoDataBase[i].dueDate}`;
-                todoDiv.appendChild(dateP);
-            
-            todoDataBase[i].divMade = true;
-
-        }else{
-            continue;
-        };
-    } */

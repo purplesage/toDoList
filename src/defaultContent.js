@@ -70,7 +70,7 @@ const defaultContent = () => {
 svgExitButton.addEventListener('click', () => {
     ghostDiv.style.display = "none";
     svgButtonsDiv.style.display = "none";
-})
+});
 
 //appending content to their respective divs.
     todoUl.appendChild(ulHeader);
@@ -81,7 +81,7 @@ svgExitButton.addEventListener('click', () => {
 
     const addContent = (elementToAdd) => {
         todoUl.appendChild(elementToAdd);
-    }
+    };
 
     return Object.assign({}, {anchorDiv, addContent, inputList, svgAddButton, ghostDiv, svgButtonsDiv, ulHeader});
 
