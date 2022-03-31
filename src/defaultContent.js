@@ -1,9 +1,3 @@
-import { makeTodo } from "./todoMaker";
-
-const addTaskButtonLogic = () => {
-
-};
-
 
 
 const defaultContent = () => {
@@ -16,7 +10,7 @@ const defaultContent = () => {
         todoUl.setAttribute('id', 'todo-ul');
         todoUl.classList = "todo-ul-class";
     
-    let ulHeader = document.createElement('li');
+    let ulHeader = document.createElement('div');
         ulHeader.innerHTML = "<h3>Home</h3><h3>Due Date</h3>";
         ulHeader.classList = "ul-header";
 

@@ -1,24 +1,17 @@
 import './styles/index.scss';
 import { defaultContent } from './defaultContent';
-import { addTaskButtonLogic }  from './todoMaker.js'
+import { addTaskButtonLogic } from "./todoMaker";
+import { todoDataBase } from './todoMaker';
+import { format } from 'date-fns';
+
 
 
 //*content capsule-----------------
 const addedProjectsDataBase = [];
 const contentCapsule = []; //for tab changing logic function. //also need to export this for the todo maker functions.
 
-export {home, today, week};
 
-const home = defaultContent();
-contentCapsule.push(home)
-
-const today = defaultContent()
-today.ulHeader.innerHTML = "<h3>Today</h3><h3>Due Date</h3>";
-contentCapsule.push(today)
-
-const week = defaultContent()
-week.ulHeader.innerHTML = "<h3>Week</h3><h3>Due Date</h3>";
-contentCapsule.push(week)
+const rootDivContent = defaultContent();
 
 const basicConfigStuff = (() => { //default content and elements for the tabchanginglogic function.
 
@@ -26,16 +19,77 @@ const basicConfigStuff = (() => { //default content and elements for the tabchan
 
     const liElements = [...document.getElementById('todo-elements').getElementsByTagName('li')];//domElements
 
-    rootDiv.appendChild(home.anchorDiv); //default content
+    rootDiv.appendChild(rootDivContent.anchorDiv); //default content
 
     return {rootDiv, liElements};
 
 })();
 
+const basicFilters = (() => {
+
+    let today = format(new Date(), "MM/dd/yyyy");
+    const todoUl = document.getElementById('todo-ul');
+
+    for (let i = 0; i < basicConfigStuff.liElements.length; i++) {
+
+        basicConfigStuff.liElements[i].addEventListener('click', () =>{
+
+            todoUl.querySelectorAll('li').forEach(n => n.remove());
+            
+            rootDivContent.ulHeader.innerHTML = `<h3>${basicConfigStuff.liElements[i].textContent}</h3><h3>Due Date</h3>`;
+
+            if (basicConfigStuff.liElements[i].textContent === 'Today') {
+                let todayFilter = todoDataBase.filter(todoObject => format(todoObject.dueDate, "MM/dd/yyyy") === today);
+
+                for (let t = 0; t < todayFilter.length; t++) {
+                    
+                    if (todayFilter[t].isAppended === false){
+                        rootDivContent.addContent(todayFilter[t].div);
+                    }
+                    
+                }
+            }
+        });
+    }
+})();
+
+addTaskButtonLogic(rootDivContent).eventListener();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //*Tab changing logic:--------------------------(now algeabrized!)
 
 
-const tabChangingLogic = (domListElements, contentCapsule, targetDiv, eraseElement) => {
+/* const tabChangingLogic = (domListElements, contentCapsule, targetDiv, eraseElement) => {
 
     if (domListElements.length === contentCapsule.length) {
 
@@ -58,7 +112,7 @@ tabChangingLogic(basicConfigStuff.liElements, contentCapsule, basicConfigStuff.r
 
 for (let i = 0; i < contentCapsule.length; i++) {
     addTaskButtonLogic(contentCapsule[i]).divMakerEventListener();
-};
+}; */
 
 
 
