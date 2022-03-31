@@ -2,7 +2,7 @@ import './styles/index.scss';
 import { defaultContent } from './defaultContent';
 import { addTaskButtonLogic } from "./todoMaker";
 import { todoDataBase } from './todoMaker';
-import { format } from 'date-fns';
+import { format, isThisWeek } from 'date-fns';
 
 
 
@@ -37,6 +37,19 @@ const basicFilters = (() => {
             todoUl.querySelectorAll('li').forEach(n => n.remove());
             
             rootDivContent.ulHeader.innerHTML = `<h3>${basicConfigStuff.liElements[i].textContent}</h3><h3>Due Date</h3>`;
+            //*------Homefilter------------------------------------------
+
+            if (basicConfigStuff.liElements[i].textContent === 'Home') {
+
+                for (let h = 0; h < todoDataBase.length; h++) {
+                    
+                    if (todoDataBase[h].isAppended === false){
+                        rootDivContent.addContent(todoDataBase[h].div);
+                    } 
+                }
+            };
+
+            //*------todayFilter-----------------------------------------
 
             if (basicConfigStuff.liElements[i].textContent === 'Today') {
                 let todayFilter = todoDataBase.filter(todoObject => format(todoObject.dueDate, "MM/dd/yyyy") === today);
@@ -45,8 +58,20 @@ const basicFilters = (() => {
                     
                     if (todayFilter[t].isAppended === false){
                         rootDivContent.addContent(todayFilter[t].div);
-                    }
+                    }    
+                }
+            }
+
+            //*-----weekFilter-------------------------
+
+            if (basicConfigStuff.liElements[i].textContent === 'Week') {
+                let weekFilter = todoDataBase.filter(todoObject => isThisWeek(new Date(todoObject.dueDate)) === true);
+
+                for (let w = 0; w < weekFilter.length; w++) {
                     
+                    if (weekFilter[w].isAppended === false){
+                        rootDivContent.addContent(weekFilter[w].div);
+                    }  
                 }
             }
         });
