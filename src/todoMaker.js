@@ -1,10 +1,10 @@
-
+import { rootDivContent } from './index';
 import {format, parseISO } from 'date-fns';
 
 //todo: database (this will use localstorage in the future)
 //todo: This module works, but its very messy, need to refactor this to increase readability.
 let todoDataBase = [];
-let addedProjectsDataBase = [];
+let projectLiDataBase = [];
 
 export {todoDataBase};
 //--------------------------------------------------------
@@ -48,11 +48,74 @@ const addTaskButtonLogic = (contentInstance) => {
             
             if (todoDivObject.projectName !== "") {
 
+                let liAlreadyExists = false;
+
                 let projectTabs = document.getElementById('project-list');
                 
-                let newNavigationTab = document.createElement('li');
-                newNavigationTab.textContent = `${newTodo.projectName}`;
-                projectTabs.appendChild(newNavigationTab);
+                let newNavigationTab = {
+                    li: document.createElement('li'),
+                };
+
+                newNavigationTab.li.textContent = `${newTodo.projectName}`;
+
+                projectLiDataBase.push(newNavigationTab);
+
+                if (projectLiDataBase.length > 1) {
+                    
+                    for (let i = 0; i < projectLiDataBase.length; i++) {
+                        if (projectLiDataBase[i].li.textContent === newNavigationTab.li.textContent) {
+                            liAlreadyExists = true;
+                        };
+                    } ;
+                };
+
+                
+
+            
+
+                if (liAlreadyExists === false) {
+
+                    projectTabs.appendChild(newNavigationTab.li);
+
+                    const todoUl = document.getElementById('todo-ul');
+
+                    //* project filter----------
+
+                    newNavigationTab.li.addEventListener('click', () => {
+
+                        todoUl.querySelectorAll('li').forEach(n => n.remove());
+
+                        rootDivContent.ulHeader.innerHTML = `<h3>${newNavigationTab.li.textContent}</h3><h3>Due Date</h3>`;
+
+                        let projectFilter = todoDataBase.filter(todoObject => todoObject.projectName === newNavigationTab.li.textContent);
+
+                        for (let i = 0; i < projectFilter.length; i++) {
+                            rootDivContent.addContent(todoDivObject.div);
+                        }
+
+                    });
+
+                    newNavigationTab.liAlreadyExists = true;
+
+                };
+                
+
+                    
+
+                    
+
+                
+
+
+                    
+                
+
+                
+
+
+
+
+                
 
                  
             }

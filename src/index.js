@@ -7,6 +7,8 @@ import { format, isThisWeek } from 'date-fns';
 
 const rootDivContent = defaultContent();
 
+export {rootDivContent};
+
 const basicConfigStuff = (() => { //default content and elements for the tabchanginglogic function.
 
     const rootDiv = document.getElementById('main-grid-id'); //target div
@@ -15,52 +17,8 @@ const basicConfigStuff = (() => { //default content and elements for the tabchan
 
     rootDiv.appendChild(rootDivContent.anchorDiv); //default content
 
-    let projectLis;
-    
-    const projectFilters = () => {
-        if (projectLis.length > 0) {
 
-            const todoUl = document.getElementById('todo-ul');
-            
-            for (i = 0; i < projectLis.length; i++) {
-
-
-                projectLis[i].addEventListener('click', () => {
-                    
-                    todoUl.querySelectorAll('li').forEach(n => n.remove());
-                    
-                    rootDivContent.ulHeader.innerHTML = `<h3>${projectLis[i]}</h3><h3>Due Date</h3>`;
-
-                    //*project filter here
-
-                    let projectFilter = todoDataBase.filter(todoObject => todoObject.projectName === projectLis[i].textContent);
-
-                    for (let p = 0; p < todayFilter.length; p++) {
-                    
-                        rootDivContent.addContent(projectFilter[p].div);
-                    }
-
-                    
-
-        
-                    
-
-
-                })
-                /* let projectFilter = todoDataBase.filter(todoObject => todoObject.projectName === projectLis[i].textContent);
-                rootDivContent.addContent(todoObject.div); */
-            };
-
-        }else {return null}
-    };
-
-    rootDivContent.svgAddButton.addEventListener('click', () => {
-        projectLis = document.getElementById('project-list').querySelectorAll('li');
-        projectFilters()
-
-    });
-
-    return {rootDiv, liElements, projectLis};
+    return {rootDiv, liElements};
 
 })();
 
