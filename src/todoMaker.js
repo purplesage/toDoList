@@ -24,8 +24,8 @@ const addTaskButtonLogic = (contentInstance) => {
     };
 
     const todoDivMaker = () => {
+
         let newTodo = makeTodo(contentInstance);
-        
         
         let todoDiv = document.createElement('li');
     
@@ -37,7 +37,6 @@ const addTaskButtonLogic = (contentInstance) => {
             dateP.textContent = `${format(newTodo.dueDate, "MM/dd/yyyy")}`;
             todoDiv.appendChild(dateP);
 
-
         let todoDivObject = {
             dueDate: newTodo.dueDate,
             div: todoDiv,
@@ -45,86 +44,63 @@ const addTaskButtonLogic = (contentInstance) => {
         };
 
             todoDataBase.push(todoDivObject); //sends todo to the database.
-            
+          
             if (todoDivObject.projectName !== "") {
 
+
                 let liAlreadyExists = false;
+                /* let newNavigationTab; */
 
-                let projectTabs = document.getElementById('project-list');
-                
-                let newNavigationTab = {
-                    li: document.createElement('li'),
-                };
-
-                newNavigationTab.li.textContent = `${newTodo.projectName}`;
-
-                projectLiDataBase.push(newNavigationTab);
-
-                if (projectLiDataBase.length > 1) {
+                if (projectLiDataBase.length >= 1) {
                     
-                    for (let i = 0; i < projectLiDataBase.length; i++) {
-                        if (projectLiDataBase[i].li.textContent === newNavigationTab.li.textContent) {
+                    for (let i = 0; i <= projectLiDataBase.length; i++) {
+                        if (projectLiDataBase[i] === newTodo.projectName) {
                             liAlreadyExists = true;
                         };
                     } ;
                 };
-
                 
-
-            
-
                 if (liAlreadyExists === false) {
 
-                    projectTabs.appendChild(newNavigationTab.li);
+                    let newNavigationTab = () => {
+                        return {
+                            li: document.createElement('li'),
+                        }
+                    };
+
+                    let tabLiInstance = newNavigationTab();
+    
+                    tabLiInstance.li.textContent = `${newTodo.projectName}`;
+    
+                    projectLiDataBase.push(tabLiInstance.li.textContent);
+
+                    let projectTabs = document.getElementById('project-list');
+
+                    projectTabs.appendChild(tabLiInstance.li);
 
                     const todoUl = document.getElementById('todo-ul');
 
-                    //* project filter----------
+                     //* project filter----------
 
-                    newNavigationTab.li.addEventListener('click', () => {
+                     tabLiInstance.li.addEventListener('click', () => {
 
                         todoUl.querySelectorAll('li').forEach(n => n.remove());
 
-                        rootDivContent.ulHeader.innerHTML = `<h3>${newNavigationTab.li.textContent}</h3><h3>Due Date</h3>`;
+                        rootDivContent.ulHeader.innerHTML = `<h3>${tabLiInstance.li.textContent}</h3><h3>Due Date</h3>`;
 
-                        let projectFilter = todoDataBase.filter(todoObject => todoObject.projectName === newNavigationTab.li.textContent);
+                        let projectFilter = todoDataBase.filter(todoObject => todoObject.projectName === tabLiInstance.li.textContent);
 
                         for (let i = 0; i < projectFilter.length; i++) {
-                            rootDivContent.addContent(todoDivObject.div);
+                            rootDivContent.addContent(projectFilter[i].div);
                         }
-
                     });
-
-                    newNavigationTab.liAlreadyExists = true;
-
-                };
-                
-
-                    
-
-                    
-
-                
-
-
-                    
-                
-
-                
-
-
-
-
-                
-
-                 
-            }
+                };    
+            };
 
             return todoDivObject;
         };
 
         const eventListener = () => {
-
 
             contentInstance.svgAddButton.addEventListener('click', () => {
 
@@ -137,11 +113,9 @@ const addTaskButtonLogic = (contentInstance) => {
                 contentInstance.ghostDiv.style.display = "none";
                 contentInstance.svgButtonsDiv.style.display = "none";
 
-                
-    
             });
 
-        } 
+        }; 
 
         return {todoDivMaker, eventListener}
 
