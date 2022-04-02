@@ -81,7 +81,7 @@ svgExitButton.addEventListener('click', () => {
         todoUl.appendChild(elementToAdd);
     };
 
-    return Object.assign({}, {anchorDiv, addContent, inputList, svgAddButton, ghostDiv, svgButtonsDiv, ulHeader});
+    return Object.assign({}, {anchorDiv, addContent, inputList, svgAddButton, ghostDiv, svgButtonsDiv, ulHeader, todoUl});
 
 };
 

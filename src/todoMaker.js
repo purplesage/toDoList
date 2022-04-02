@@ -1,11 +1,10 @@
-
+import { rootDivContent } from './index';
 import {format, parseISO } from 'date-fns';
 import { projectFilter } from './projectFilter';
 
 //todo: database (this will use localstorage in the future)
 //todo: This module works, but its very messy, need to refactor this to increase readability.
 let todoDataBase = [];
-
 
 export {todoDataBase};
 //--------------------------------------------------------
@@ -37,6 +36,39 @@ const addTaskButtonLogic = (contentInstance) => {
         let dateP = document.createElement('p');
             dateP.textContent = `${format(newTodo.dueDate, "MM/dd/yyyy")}`;
             todoDiv.appendChild(dateP);
+
+        //todo: delete button element--------------------
+
+        let deleteTodoSvg = document.createElement('div');
+            deleteTodoSvg.textContent = "deleteSVG";
+            todoDiv.appendChild(deleteTodoSvg);
+        
+            
+            
+            deleteTodoSvg.addEventListener('click', () => {
+                
+                let todoUlLiElements = document.getElementById('todo-ul').getElementsByTagName('li');
+
+                for (let i = 0; i < todoUlLiElements.length; i++) {
+                    todoUlLiElements[i].removeAttribute('id');
+                    todoUlLiElements[i].setAttribute('id', `${i}`);
+                }
+
+                rootDivContent.todoUl.removeChild(todoUlLiElements[todoDiv.getAttribute('id')]);
+
+            })
+
+        //todo: description button element----------------
+
+
+        let todoDescriptionSvg = document.createElement('div');
+            todoDescriptionSvg.textContent = "descriptionSVG";
+            todoDiv.appendChild(todoDescriptionSvg);
+
+            todoDescriptionSvg.addEventListener('click', () => {
+
+            })
+        //-----------------------------------------------
 
         let todoDivObject = {
             dueDate: newTodo.dueDate,
