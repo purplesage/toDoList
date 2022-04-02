@@ -9,6 +9,8 @@ const rootDivContent = defaultContent();
 
 export {rootDivContent};
 
+//* IIFE containing essential basic elements for dom manipulation-----------------
+
 const basicConfigStuff = (() => { //default content and elements for the tabchanginglogic function.
 
     const rootDiv = document.getElementById('main-grid-id'); //target div
@@ -22,6 +24,7 @@ const basicConfigStuff = (() => { //default content and elements for the tabchan
 
 })();
 
+//* todo content filters added to default 'home, today and week' li elements in the left navbar.
 const basicFilters = (() => {
 
     let today = format(new Date(), "MM/dd/yyyy");
@@ -37,7 +40,7 @@ const basicFilters = (() => {
             
             rootDivContent.ulHeader.innerHTML = `<h3>${basicConfigStuff.liElements[i].textContent}</h3><h3>Due Date</h3>`;
 
-            //*------Homefilter------------------------------------------
+            //*------Homefilter-----------(makes 'home' li show all todo's)----------------------
 
             if (basicConfigStuff.liElements[i].textContent === 'Home') {
 
@@ -47,7 +50,7 @@ const basicFilters = (() => {
                 }
             };
 
-            //*------todayFilter-----------------------------------------
+            //*------todayFilter----(makes 'today' li show all todo's that are due for the present day)
 
             if (basicConfigStuff.liElements[i].textContent === 'Today') {
                 let todayFilter = todoDataBase.filter(todoObject => format(todoObject.dueDate, "MM/dd/yyyy") === today);
@@ -58,7 +61,7 @@ const basicFilters = (() => {
                 }
             };
 
-            //*-----weekFilter-------------------------
+            //*-----weekFilter---(makes'week' li show all todo's that are due this week)-------
 
             if (basicConfigStuff.liElements[i].textContent === 'Week') {
                 let weekFilter = todoDataBase.filter(todoObject => isThisWeek(new Date(todoObject.dueDate)) === true);
@@ -71,6 +74,8 @@ const basicFilters = (() => {
         });
     }
 })();
+
+//*this function all adds the logic of the addTask button to it. (see todomaker.js)
 
 addTaskButtonLogic(rootDivContent).eventListener();
 
