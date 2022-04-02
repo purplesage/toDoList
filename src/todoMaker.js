@@ -37,13 +37,11 @@ const addTaskButtonLogic = (contentInstance) => {
             dateP.textContent = `${format(newTodo.dueDate, "MM/dd/yyyy")}`;
             todoDiv.appendChild(dateP);
 
-        //todo: delete button element--------------------
+        //* delete button element--------------------
 
         let deleteTodoSvg = document.createElement('div');
             deleteTodoSvg.textContent = "deleteSVG";
             todoDiv.appendChild(deleteTodoSvg);
-        
-            
             
             deleteTodoSvg.addEventListener('click', () => {
                 
@@ -55,6 +53,11 @@ const addTaskButtonLogic = (contentInstance) => {
                 }
 
                 rootDivContent.todoUl.removeChild(todoUlLiElements[todoDiv.getAttribute('id')]);
+
+                // deletes 'todo' object from database.
+
+                todoDataBase.splice(todoDataBase.indexOf(todoDivObject), 1);
+
 
             })
 
