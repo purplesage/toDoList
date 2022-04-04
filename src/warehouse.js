@@ -1,23 +1,22 @@
 /* import { rootDivContent } from './index';
-import {format, parseISO } from 'date-fns'; */
-
+import {format, parseISO } from 'date-fns';
+import { projectFilter } from './projectFilter';
+ */
 //todo: database (this will use localstorage in the future)
 //todo: This module works, but its very messy, need to refactor this to increase readability.
 let todoDataBase = [];
-let projectLiDataBase = [];
 
 export {todoDataBase};
 //--------------------------------------------------------
 const addTaskButtonLogic = (contentInstance) => {
 
     const makeTodo = () => { 
+        
         let todo = {
-            divMade: false,
-            dueDate: new Date(parseISO(contentInstance.inputList[2].value)),
             title: contentInstance.inputList[0].value,
             description: contentInstance.inputList[1].value,
+            dueDate: new Date(parseISO(contentInstance.inputList[2].value)),
             projectName: contentInstance.inputList[3].value,
-            hasProject: false,
         };
     
         return todo;
@@ -37,6 +36,91 @@ const addTaskButtonLogic = (contentInstance) => {
             dateP.textContent = `${format(newTodo.dueDate, "MM/dd/yyyy")}`;
             todoDiv.appendChild(dateP);
 
+        //* delete button element--------------------
+
+        let deleteTodoSvg = document.createElement('div');
+            deleteTodoSvg.textContent = "deleteSVG";
+            todoDiv.appendChild(deleteTodoSvg);
+            
+            deleteTodoSvg.addEventListener('click', () => {
+                
+                let todoUlLiElements = document.getElementById('todo-ul').getElementsByTagName('li');
+
+                for (let i = 0; i < todoUlLiElements.length; i++) {
+                    todoUlLiElements[i].removeAttribute('id');
+                    todoUlLiElements[i].setAttribute('id', `${i}`);
+                }
+
+                rootDivContent.todoUl.removeChild(todoUlLiElements[todoDiv.getAttribute('id')]);
+
+                // deletes 'todo' object from database.
+
+                todoDataBase.splice(todoDataBase.indexOf(todoDivObject), 1);
+
+
+            })
+
+        //todo: description button element------(currently under work)----------
+
+        let todoDescriptionSvg = document.createElement('div');
+            todoDescriptionSvg.textContent = "descriptionSVG";
+            todoDiv.appendChild(todoDescriptionSvg);
+
+        let mainDiv = document.getElementById('todo-ul');
+
+        
+        let descriptionDiv = document.createElement('div');
+        
+        let descriptionXbutton = document.createElement('button');
+        descriptionXbutton.textContent = 'X';
+        
+
+        descriptionXbutton.addEventListener('click', () => {
+
+            descriptionDiv.style.display = "none";
+            descriptionDiv.innerHTML = "";
+            
+        });
+
+
+            todoDescriptionSvg.addEventListener('click', () => {
+                
+                    descriptionDiv.style.display = "flex";
+                    descriptionDiv.classList = 'description-element-div';
+
+                    for (let key in newTodo) {
+                        let descriptionElement = document.createElement('input');
+                        
+                        if (key === 'title') {
+                            descriptionElement.setAttribute('type', 'text');
+                            descriptionElement.setAttribute('placeholder', `Title: ${newTodo.title}`);
+                            newTodo.title = descriptionElement.value;
+
+                        }else if (key === "description") {
+                            descriptionElement.setAttribute('type', 'text');
+                            descriptionElement.setAttribute('placeholder', `Description: ${newTodo.description}`);
+                            newTodo.description = descriptionElement.value;
+
+                        }else if (key === 'dueDate') {
+                            descriptionElement.setAttribute('type', 'date');
+                            descriptionElement.value = `${newTodo.dueDate}`
+                            newTodo.dueDate = descriptionElement.value;
+
+                        }else if (key === "projectName") {
+                            descriptionElement.setAttribute('type', 'text');
+                            descriptionElement.setAttribute('placeholder', `Project name: ${newTodo.projectName}`);
+                            
+                        }
+
+                        descriptionDiv.appendChild(descriptionElement);
+
+                    };
+
+                    descriptionDiv.appendChild(descriptionXbutton);
+                    mainDiv.appendChild(descriptionDiv);  
+            });
+        //-----------------------------------------------
+
         let todoDivObject = {
             dueDate: newTodo.dueDate,
             div: todoDiv,
@@ -47,54 +131,8 @@ const addTaskButtonLogic = (contentInstance) => {
           
             if (todoDivObject.projectName !== "") {
 
-
-                let liAlreadyExists = false;
-                /* let newNavigationTab; */
-
-                if (projectLiDataBase.length >= 1) {
-                    
-                    for (let i = 0; i <= projectLiDataBase.length; i++) {
-                        if (projectLiDataBase[i] === newTodo.projectName) {
-                            liAlreadyExists = true;
-                        };
-                    } ;
-                };
-                
-                if (liAlreadyExists === false) {
-
-                    let newNavigationTab = () => {
-                        return {
-                            li: document.createElement('li'),
-                        }
-                    };
-
-                    let tabLiInstance = newNavigationTab();
-    
-                    tabLiInstance.li.textContent = `${newTodo.projectName}`;
-    
-                    projectLiDataBase.push(tabLiInstance.li.textContent);
-
-                    let projectTabs = document.getElementById('project-list');
-
-                    projectTabs.appendChild(tabLiInstance.li);
-
-                    const todoUl = document.getElementById('todo-ul');
-
-                     //* project filter----------
-
-                     tabLiInstance.li.addEventListener('click', () => {
-
-                        todoUl.querySelectorAll('li').forEach(n => n.remove());
-
-                        rootDivContent.ulHeader.innerHTML = `<h3>${tabLiInstance.li.textContent}</h3><h3>Due Date</h3>`;
-
-                        let projectFilter = todoDataBase.filter(todoObject => todoObject.projectName === tabLiInstance.li.textContent);
-
-                        for (let i = 0; i < projectFilter.length; i++) {
-                            rootDivContent.addContent(projectFilter[i].div);
-                        }
-                    });
-                };    
+                projectFilter(newTodo)  //check projectFilter.js for more info
+                 
             };
 
             return todoDivObject;
@@ -121,5 +159,4 @@ const addTaskButtonLogic = (contentInstance) => {
 
 };
 
-/* export {addTaskButtonLogic};
- */
+/* export {addTaskButtonLogic}; */
