@@ -17,6 +17,7 @@ const addTaskButtonLogic = (contentInstance) => {
             description: contentInstance.inputList[1].value,
             dueDate: new Date(parseISO(contentInstance.inputList[2].value)),
             projectName: contentInstance.inputList[3].value,
+            div: null,
         };
     
         return todo;
@@ -24,16 +25,16 @@ const addTaskButtonLogic = (contentInstance) => {
 
     const todoDivMaker = () => {
 
-        let newTodo = makeTodo(contentInstance);
+        let todoDivObject = makeTodo(contentInstance);
         
         let todoDiv = document.createElement('li');
     
         let titleP = document.createElement('p');
-            titleP.textContent = `${newTodo.title}`;
+            titleP.textContent = `${todoDivObject.title}`;
             todoDiv.appendChild(titleP);
     
         let dateP = document.createElement('p');
-            dateP.textContent = `${format(newTodo.dueDate, "MM/dd/yyyy")}`;
+            dateP.textContent = `${format(todoDivObject.dueDate, "MM/dd/yyyy")}`;
             todoDiv.appendChild(dateP);
 
         //* delete button element--------------------
@@ -88,27 +89,27 @@ const addTaskButtonLogic = (contentInstance) => {
                     descriptionDiv.style.display = "flex";
                     descriptionDiv.classList = 'description-element-div';
 
-                    for (let key in newTodo) {
+                    for (let key in todoDivObject) {
                         let descriptionElement = document.createElement('input');
                         
                         if (key === 'title') {
                             descriptionElement.setAttribute('type', 'text');
-                            descriptionElement.setAttribute('placeholder', `Title: ${newTodo.title}`);
-                            newTodo.title = descriptionElement.value;
+                            descriptionElement.setAttribute('placeholder', `Title: ${todoDivObject.title}`);
+                            todoDivObject.title = descriptionElement.value;
 
                         }else if (key === "description") {
                             descriptionElement.setAttribute('type', 'text');
-                            descriptionElement.setAttribute('placeholder', `Description: ${newTodo.description}`);
-                            newTodo.description = descriptionElement.value;
+                            descriptionElement.setAttribute('placeholder', `Description: ${todoDivObject.description}`);
+                            todoDivObject.description = descriptionElement.value;
 
                         }else if (key === 'dueDate') {
                             descriptionElement.setAttribute('type', 'date');
-                            descriptionElement.value = `${newTodo.dueDate}`
-                            newTodo.dueDate = descriptionElement.value;
+                            descriptionElement.value = `${todoDivObject.dueDate}`
+                            todoDivObject.dueDate = descriptionElement.value;
 
                         }else if (key === "projectName") {
                             descriptionElement.setAttribute('type', 'text');
-                            descriptionElement.setAttribute('placeholder', `Project name: ${newTodo.projectName}`);
+                            descriptionElement.setAttribute('placeholder', `Project name: ${todoDivObject.projectName}`);
                             
                         }
 
@@ -121,17 +122,13 @@ const addTaskButtonLogic = (contentInstance) => {
             });
         //-----------------------------------------------
 
-        let todoDivObject = {
-            dueDate: newTodo.dueDate,
-            div: todoDiv,
-            projectName: newTodo.projectName,
-        };
+        todoDivObject.div = todoDiv;
 
             todoDataBase.push(todoDivObject); //sends todo to the database.
           
             if (todoDivObject.projectName !== "") {
 
-                projectFilter(newTodo)  //check projectFilter.js for more info
+                projectFilter(todoDivObject)  //check projectFilter.js for more info
                  
             };
 
