@@ -11,13 +11,12 @@ export {todoDataBase};
 const addTaskButtonLogic = (contentInstance) => {
 
     const makeTodo = () => { 
+        
         let todo = {
-            divMade: false,
-            dueDate: new Date(parseISO(contentInstance.inputList[2].value)),
             title: contentInstance.inputList[0].value,
             description: contentInstance.inputList[1].value,
+            dueDate: new Date(parseISO(contentInstance.inputList[2].value)),
             projectName: contentInstance.inputList[3].value,
-            hasProject: false,
         };
     
         return todo;
@@ -61,16 +60,65 @@ const addTaskButtonLogic = (contentInstance) => {
 
             })
 
-        //todo: description button element----------------
-
+        //todo: description button element------(currently under work)----------
 
         let todoDescriptionSvg = document.createElement('div');
             todoDescriptionSvg.textContent = "descriptionSVG";
             todoDiv.appendChild(todoDescriptionSvg);
 
-            todoDescriptionSvg.addEventListener('click', () => {
+        let mainDiv = document.getElementById('todo-ul');
 
-            })
+        
+        let descriptionDiv = document.createElement('div');
+        
+        let descriptionXbutton = document.createElement('button');
+        descriptionXbutton.textContent = 'X';
+        
+
+        descriptionXbutton.addEventListener('click', () => {
+
+            descriptionDiv.style.display = "none";
+            descriptionDiv.innerHTML = "";
+            
+        });
+
+
+            todoDescriptionSvg.addEventListener('click', () => {
+                
+                    descriptionDiv.style.display = "flex";
+                    descriptionDiv.classList = 'description-element-div';
+
+                    for (let key in newTodo) {
+                        let descriptionElement = document.createElement('input');
+                        
+                        if (key === 'title') {
+                            descriptionElement.setAttribute('type', 'text');
+                            descriptionElement.setAttribute('placeholder', `Title: ${newTodo.title}`);
+                            newTodo.title = descriptionElement.value;
+
+                        }else if (key === "description") {
+                            descriptionElement.setAttribute('type', 'text');
+                            descriptionElement.setAttribute('placeholder', `Description: ${newTodo.description}`);
+                            newTodo.description = descriptionElement.value;
+
+                        }else if (key === 'dueDate') {
+                            descriptionElement.setAttribute('type', 'date');
+                            descriptionElement.value = `${newTodo.dueDate}`
+                            newTodo.dueDate = descriptionElement.value;
+
+                        }else if (key === "projectName") {
+                            descriptionElement.setAttribute('type', 'text');
+                            descriptionElement.setAttribute('placeholder', `Project name: ${newTodo.projectName}`);
+                            
+                        }
+
+                        descriptionDiv.appendChild(descriptionElement);
+
+                    };
+
+                    descriptionDiv.appendChild(descriptionXbutton);
+                    mainDiv.appendChild(descriptionDiv);  
+            });
         //-----------------------------------------------
 
         let todoDivObject = {
