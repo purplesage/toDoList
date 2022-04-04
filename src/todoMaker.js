@@ -58,7 +58,6 @@ const addTaskButtonLogic = (contentInstance) => {
 
                 todoDataBase.splice(todoDataBase.indexOf(todoDivObject), 1);
 
-
             })
 
         //* description-eddit button element---------------------------
@@ -78,6 +77,8 @@ const addTaskButtonLogic = (contentInstance) => {
 
         let descriptionVbutton = document.createElement('button');
         descriptionVbutton.textContent = 'V';
+
+        //description button event listener
 
         todoDescriptionSvg.addEventListener('click', () => {
             
@@ -119,6 +120,7 @@ const addTaskButtonLogic = (contentInstance) => {
             mainDiv.appendChild(descriptionDiv);  
     });    
 
+        //x button logic
         descriptionXbutton.addEventListener('click', () => {
 
             descriptionDiv.style.display = "none";
@@ -126,6 +128,7 @@ const addTaskButtonLogic = (contentInstance) => {
             
         }); 
     
+        // v button logic
         descriptionVbutton.addEventListener('click', () => {
 
             let descriptionInputs = document.getElementById('description-element-div').getElementsByTagName('input');
@@ -137,17 +140,19 @@ const addTaskButtonLogic = (contentInstance) => {
 
             todoDivObject.div.innerHTML = `<p>${todoDivObject.title}</p><p>${format(todoDivObject.dueDate, "MM/dd/yyyy")}</p>`;
 
-            todoDivObject.div.appendChild(todoDescriptionSvg);
             todoDivObject.div.appendChild(deleteTodoSvg);
+            todoDivObject.div.appendChild(todoDescriptionSvg);
 
             descriptionDiv.style.display = "none";
             descriptionDiv.innerHTML = "";
+
+            projectFilter(todoDivObject);
 
         });
 
         //-----------------------------------------------
 
-        todoDivObject.div = todoDiv;
+        todoDivObject.div = todoDiv; //assigns the newly made todo'div to its value origin object.
 
             todoDataBase.push(todoDivObject); //sends todo to the database.
           
@@ -163,6 +168,8 @@ const addTaskButtonLogic = (contentInstance) => {
         };
 
         const eventListener = () => {
+
+            //? adds new todo to whatever tab it is called on. It gets filtered later via 'default filters (see index.js)' and 'project filter (see project.js)'.  
 
             contentInstance.svgAddButton.addEventListener('click', () => {
 

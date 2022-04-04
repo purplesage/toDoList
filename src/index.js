@@ -75,7 +75,7 @@ const basicFilters = (() => {
     }
 })();
 
-//*this function all adds the logic of the addTask button to it. (see todomaker.js)
+//this function adds all the logic of the addTask button to the default content. (see todoMaker.js and defaultContent.js)
 
 addTaskButtonLogic(rootDivContent).eventListener();
 
