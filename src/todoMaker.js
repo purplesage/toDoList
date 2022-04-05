@@ -25,6 +25,9 @@ const addTaskButtonLogic = (contentInstance) => {
 
     const todoDivMaker = () => {
 
+
+        //creates the todo's div and its inner elements.
+
         let todoDivObject = makeTodo(contentInstance);
         
         let todoDiv = document.createElement('li');
@@ -174,6 +177,8 @@ const addTaskButtonLogic = (contentInstance) => {
             contentInstance.svgAddButton.addEventListener('click', () => {
 
                 contentInstance.addContent(todoDivMaker().div);
+
+                //blanks the inputs and hides the ghost div(that is: the expanded addtask button).
 
                 for (let i = 0; i < contentInstance.inputList.length; i++) {
                     contentInstance.inputList[i].value = "";
