@@ -18,27 +18,32 @@ const projectFilter = (newTodo) => {
         
         if (liAlreadyExists === false) {
 
-            let newNavigationTab = () => {
-                return {
+            let tabLiInstance = {
                     li: document.createElement('li'),
-                }
-            };
+                    NofProjects: document.createElement('p'),
+                    projectName: document.createElement('p'),
+                };
+        
 
-            let tabLiInstance = newNavigationTab();
+            tabLiInstance.projectName.textContent = `${newTodo.projectName}`;
 
-            tabLiInstance.li.textContent = `${newTodo.projectName}`;
+            tabLiInstance.li.appendChild(tabLiInstance.NofProjects);
+            tabLiInstance.li.appendChild(tabLiInstance.projectName);
 
-            projectLiDataBase.push(tabLiInstance.li.textContent);
+            projectLiDataBase.push(tabLiInstance.projectName.textContent);
 
             let projectTabs = document.getElementById('project-list');
 
             //todo: #of todo's display div----------------
-            
-            /* let projectFilterList;
+
+    /* 
             const amountOfTodosDisplay = document.createElement('p');
                 tabLiInstance.li.appendChild(amountOfTodosDisplay);
-            amountOfTodosDisplay.textContent = `${projectFilterList.length}`
-            let amountOfTodosInProject = projectFilter.length; */
+
+                const numberDisplay = (projectFilterLength) => {
+                    amountOfTodosDisplay.textContent = `${projectFilterLength.length}`
+                }
+     */
             
             //--------------------------------------------
 
@@ -53,18 +58,17 @@ const projectFilter = (newTodo) => {
 
                 todoUl.querySelectorAll('li').forEach(n => n.remove());
 
-                rootDivContent.ulHeader.innerHTML = `<h3>${tabLiInstance.li.textContent}</h3><h3>Due Date</h3>`;
+                rootDivContent.ulHeader.innerHTML = `<h3>${tabLiInstance.projectName.textContent}</h3><h3>Due Date</h3>`;
 
-                let projectFilterList = todoDataBase.filter(todoObject => todoObject.projectName === tabLiInstance.li.textContent);
+                let projectFilterList = todoDataBase.filter(todoObject => todoObject.projectName === tabLiInstance.projectName.textContent);
 
                 for (let i = 0; i < projectFilterList.length; i++) {
                     rootDivContent.addContent(projectFilterList[i].div);
                 }
 
+                numberDisplay(projectFilterList);
+
                 //todo: #of todo's display div.
-
-                /* amountOfTodosDisplay.textContent =`${projectFilter.length}`; */
-
 
                 
 
