@@ -166,6 +166,17 @@ input, select {
             gap: 2rem;
             list-style: none;
             margin-top: 2.2rem;
+
+            .project-list {
+
+                li{
+                    display: flex;
+
+                    p {
+                        order: -1;
+                    }
+                }
+            }
         }
         
     }

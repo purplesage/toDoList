@@ -57,7 +57,7 @@ const addTaskButtonLogic = (contentInstance) => {
 
             });
 
-        //* description-eddit button element---------------------------
+        //* description-edit button element---------------------------
 
         //todo: change variable names so that they make more sense.
 
@@ -127,7 +127,7 @@ const addTaskButtonLogic = (contentInstance) => {
             
         }); 
     
-        // v button logic, adds new input and edits the todo object.
+        // v button logic, adds new input fields in order to edit the todo object.
         descriptionVbutton.addEventListener('click', () => {
 
             let descriptionInputs = document.getElementById('description-element-div').getElementsByTagName('input');

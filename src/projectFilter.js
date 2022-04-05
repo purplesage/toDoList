@@ -32,11 +32,22 @@ const projectFilter = (newTodo) => {
 
             let projectTabs = document.getElementById('project-list');
 
+            //todo: #of todo's display div----------------
+            
+            /* let projectFilterList;
+            const amountOfTodosDisplay = document.createElement('p');
+                tabLiInstance.li.appendChild(amountOfTodosDisplay);
+            amountOfTodosDisplay.textContent = `${projectFilterList.length}`
+            let amountOfTodosInProject = projectFilter.length; */
+            
+            //--------------------------------------------
+
             projectTabs.appendChild(tabLiInstance.li);
 
             const todoUl = document.getElementById('todo-ul');
 
                 //* project filter----------
+
 
                 tabLiInstance.li.addEventListener('click', () => {
 
@@ -44,13 +55,24 @@ const projectFilter = (newTodo) => {
 
                 rootDivContent.ulHeader.innerHTML = `<h3>${tabLiInstance.li.textContent}</h3><h3>Due Date</h3>`;
 
-                let projectFilter = todoDataBase.filter(todoObject => todoObject.projectName === tabLiInstance.li.textContent);
+                let projectFilterList = todoDataBase.filter(todoObject => todoObject.projectName === tabLiInstance.li.textContent);
 
-                for (let i = 0; i < projectFilter.length; i++) {
-                    rootDivContent.addContent(projectFilter[i].div);
+                for (let i = 0; i < projectFilterList.length; i++) {
+                    rootDivContent.addContent(projectFilterList[i].div);
                 }
+
+                //todo: #of todo's display div.
+
+                /* amountOfTodosDisplay.textContent =`${projectFilter.length}`; */
+
+
+                
+
+                //--------------------------------------
             });
         };
+
+        
 }
 
 export {projectFilter, projectLiDataBase};
