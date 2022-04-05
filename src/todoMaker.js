@@ -25,7 +25,6 @@ const addTaskButtonLogic = (contentInstance) => {
 
     const todoDivMaker = () => {
 
-
         //creates the todo's div and its inner elements.
 
         let todoDivObject = makeTodo(contentInstance);
@@ -40,30 +39,27 @@ const addTaskButtonLogic = (contentInstance) => {
             dateP.textContent = `${format(todoDivObject.dueDate, "MM/dd/yyyy")}`;
             todoDiv.appendChild(dateP);
 
-        //* delete button element--------------------
+        //* 'delete todo' button element--------------------
 
         let deleteTodoSvg = document.createElement('div');
             deleteTodoSvg.textContent = "deleteSVG";
             todoDiv.appendChild(deleteTodoSvg);
             
             deleteTodoSvg.addEventListener('click', () => {
-                
-                let todoUlLiElements = document.getElementById('todo-ul').getElementsByTagName('li');
 
-                for (let i = 0; i < todoUlLiElements.length; i++) {
-                    todoUlLiElements[i].removeAttribute('id');
-                    todoUlLiElements[i].setAttribute('id', `${i}`);
-                }
+                // deletes todo div from display.
 
-                rootDivContent.todoUl.removeChild(todoUlLiElements[todoDiv.getAttribute('id')]);
+                rootDivContent.todoUl.removeChild(todoDiv);
 
                 // deletes 'todo' object from database.
 
                 todoDataBase.splice(todoDataBase.indexOf(todoDivObject), 1);
 
-            })
+            });
 
         //* description-eddit button element---------------------------
+
+        //todo: change variable names so that they make more sense.
 
         let todoDescriptionSvg = document.createElement('div');
             todoDescriptionSvg.textContent = "descriptionSVG";
@@ -81,7 +77,7 @@ const addTaskButtonLogic = (contentInstance) => {
         let descriptionVbutton = document.createElement('button');
         descriptionVbutton.textContent = 'V';
 
-        //description button event listener
+        //description button event listener that adds inputs for editing todo's.
 
         todoDescriptionSvg.addEventListener('click', () => {
             
@@ -103,7 +99,7 @@ const addTaskButtonLogic = (contentInstance) => {
 
                 }else if (key === 'dueDate') {
                     descriptionElement.setAttribute('type', 'date');
-                    descriptionElement.value = `${todoDivObject.dueDate}`
+                    descriptionElement.value = `${todoDivObject.dueDate}`;
                     todoDivObject.dueDate = descriptionElement.value;
 
                 }else if (key === "projectName") {
@@ -123,7 +119,7 @@ const addTaskButtonLogic = (contentInstance) => {
             mainDiv.appendChild(descriptionDiv);  
     });    
 
-        //x button logic
+        //x button logic, simply exits the edit div without doing anything else.
         descriptionXbutton.addEventListener('click', () => {
 
             descriptionDiv.style.display = "none";
@@ -131,7 +127,7 @@ const addTaskButtonLogic = (contentInstance) => {
             
         }); 
     
-        // v button logic
+        // v button logic, adds new input and edits the todo object.
         descriptionVbutton.addEventListener('click', () => {
 
             let descriptionInputs = document.getElementById('description-element-div').getElementsByTagName('input');
@@ -163,7 +159,7 @@ const addTaskButtonLogic = (contentInstance) => {
 
             if (todoDivObject.projectName !== "") {
 
-                projectFilter(todoDivObject)  //check projectFilter.js for more info
+                projectFilter(todoDivObject);  //check projectFilter.js for more info
                  
             };
 
@@ -182,7 +178,7 @@ const addTaskButtonLogic = (contentInstance) => {
 
                 for (let i = 0; i < contentInstance.inputList.length; i++) {
                     contentInstance.inputList[i].value = "";
-                }
+                };
 
                 contentInstance.ghostDiv.style.display = "none";
                 contentInstance.svgButtonsDiv.style.display = "none";
@@ -191,7 +187,7 @@ const addTaskButtonLogic = (contentInstance) => {
 
         }; 
 
-        return {todoDivMaker, eventListener}
+        return {todoDivMaker, eventListener};
 
 };
 
