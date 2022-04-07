@@ -1,0 +1,51 @@
+Core objects:
+
+
+done:
+
+Default content.
+Default filters.
+Project special filter.
+todoObject maker.
+TodoDiv maker.
+Edit button.
+Delete button
+
+Pending:
+project todo number display.
+todo sorting button.
+
+Work flow:
+
+1-. Basic HTML layout is set up.
+
+2-. 'default content' is appended to the 'main-grid' element (from defaultContent.js, called in index.js). Originally my intention was to allocate the todo's in their specific div, but then i changed my plan into the 'filter' strategy. Instead of switching between div elements when a sidenav tab is clicked. The todo's just get filtered instead of taking the content div and adding another.
+
+3-. the default filters are added into the 'li' elements in the side nav.
+
+4-. The logic for the addTask button is in the todoMaker module. Said logic is added into 'default content' through a function call in index.js.
+
+5-. the project filter does two main things:
+
+    I-. Creates the display li element for the 'project' section in the sidenav.
+    II-. Appends an event listener to said element which filters the todo's depending on their project's name.
+
+The invokation for 'project filter' is conditioned and made within the 'todoDivMaker' function in 'addTaskButtonLogic' in todomaker.js.
+
+'addTaskButtonLogic' function has 3 functions within.
+
+    I-. makeTodo: Creates an object whose properties are set from the values set in the ghost Div inputs. (from DefaultContent). Returns an object. 
+
+    II-. TodoDivMaker: This function creates a DOM element to display a 'todo', by taking the info from
+    the todoObject variable that calls on makeTodo.
+    
+    It also adds the 'delete' and the 'edit' button and all their logic into the newly created div.
+    In this function the 'project filter' is conditioned and called.
+    
+    III-. EventListener: it adds an event listener to the defaultContent 'AddTask' button. It just appends the new todo div into the UL-div.
+
+
+
+
+
+

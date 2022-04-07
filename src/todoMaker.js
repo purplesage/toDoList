@@ -25,12 +25,12 @@ const addTaskButtonLogic = (contentInstance) => {
 
     const todoDivMaker = () => {
 
-        //creates the todo's div and its inner elements.
+        //*creates the todo's div and its inner elements.
 
         let todoDivObject = makeTodo(contentInstance);
         
         let todoDiv = document.createElement('li');
-    
+        
         let titleP = document.createElement('p');
             titleP.textContent = `${todoDivObject.title}`;
             todoDiv.appendChild(titleP);
@@ -38,11 +38,16 @@ const addTaskButtonLogic = (contentInstance) => {
         let dateP = document.createElement('p');
             dateP.textContent = `${format(todoDivObject.dueDate, "MM/dd/yyyy")}`;
             todoDiv.appendChild(dateP);
+    
+        todoDivObject.div = todoDiv; //assigns the newly made todo'div to its value origin object.
+    
+        todoDataBase.push(todoDivObject); //sends todo to the database.
 
-        //* 'delete todo' button element--------------------
+        //* 'delete todo' button element---------------------------
 
         let deleteTodoSvg = document.createElement('div');
             deleteTodoSvg.textContent = "deleteSVG";
+            deleteTodoSvg.classList = "delete-button";
             todoDiv.appendChild(deleteTodoSvg);
             
             deleteTodoSvg.addEventListener('click', () => {
@@ -57,7 +62,7 @@ const addTaskButtonLogic = (contentInstance) => {
 
             });
 
-        //* description-edit button element---------------------------
+        //* description-edit button element-(property)-------------------------------
 
         //todo: change variable names so that they make more sense.
 
@@ -76,6 +81,7 @@ const addTaskButtonLogic = (contentInstance) => {
 
         let descriptionVbutton = document.createElement('button');
         descriptionVbutton.textContent = 'V';
+        descriptionVbutton.classList = 'v-button';
 
         //description button event listener that adds inputs for editing todo's.
 
@@ -119,7 +125,7 @@ const addTaskButtonLogic = (contentInstance) => {
             mainDiv.appendChild(descriptionDiv);  
     });    
 
-        //x button logic, simply exits the edit div without doing anything else.
+        //*  x button logic, simply exits the edit div without doing anything else.
         descriptionXbutton.addEventListener('click', () => {
 
             descriptionDiv.style.display = "none";
@@ -127,7 +133,7 @@ const addTaskButtonLogic = (contentInstance) => {
             
         }); 
     
-        // v button logic, adds new input fields in order to edit the todo object.
+        //* v button logic, adds new input fields in order to edit the todo object.
         descriptionVbutton.addEventListener('click', () => {
 
             let descriptionInputs = document.getElementById('description-element-div').getElementsByTagName('input');
@@ -146,22 +152,15 @@ const addTaskButtonLogic = (contentInstance) => {
             descriptionDiv.innerHTML = "";
 
             projectFilter(todoDivObject);
-
         });
 
-        //-----------------------------------------------
+        //* condition for calling on project filter function------------------------
+    
+        if (todoDivObject.projectName !== "") {
+    
+            projectFilter(todoDivObject, descriptionVbutton, deleteTodoSvg);  //check projectFilter.js for more info
 
-        todoDivObject.div = todoDiv; //assigns the newly made todo'div to its value origin object.
-
-            todoDataBase.push(todoDivObject); //sends todo to the database.
-          
-            //*project filter------------------------
-
-            if (todoDivObject.projectName !== "") {
-
-                projectFilter(todoDivObject);  //check projectFilter.js for more info
-                 
-            };
+        };
 
             return todoDivObject;
         };
@@ -182,6 +181,8 @@ const addTaskButtonLogic = (contentInstance) => {
 
                 contentInstance.ghostDiv.style.display = "none";
                 contentInstance.svgButtonsDiv.style.display = "none";
+
+                //todo: project number goes here
 
             });
 

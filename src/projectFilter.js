@@ -3,83 +3,98 @@ import { todoDataBase } from './todoMaker';
 
 let projectLiDataBase = [];
 
-const projectFilter = (newTodo) => {
+const projectFilter = (newTodo, editButton, deleteButton) => {
 
     let liAlreadyExists = false;
+    let tabLiInstance;
                 
-        if (projectLiDataBase.length >= 1) {
-            
-            for (let i = 0; i <= projectLiDataBase.length; i++) {
-                if (projectLiDataBase[i] === newTodo.projectName) {
-                    liAlreadyExists = true;
-                };
-            } ;
-        };
+    if (projectLiDataBase.length >= 1) {
         
-        if (liAlreadyExists === false) {
+        for (let i = 0; i <= projectLiDataBase.length; i++) {
+            if (projectLiDataBase[i] === newTodo.projectName) {
+                liAlreadyExists = true;
+            };
+        } ;
+    };
+    
+    if (liAlreadyExists === false) {
 
-            let tabLiInstance = {
-                    li: document.createElement('li'),
-                    NofProjects: document.createElement('p'),
-                    projectName: document.createElement('p'),
-                };
+        tabLiInstance = {
+                li: document.createElement('li'),
+                NofProjects: document.createElement('p'),
+                projectName: document.createElement('p'),
+                numberUpdate : () => {
+
+                    if (projectFilterList().length > 0) {
+                        tabLiInstance.NofProjects.textContent = `${projectFilterList().length}`
+                    }else{
+                        tabLiInstance.NofProjects.textContent = ``
+                    }
+                },
+            };
+
+        tabLiInstance.projectName.textContent = `${newTodo.projectName}`;
+        tabLiInstance.NofProjects.textContent = '1';
+
+        tabLiInstance.li.appendChild(tabLiInstance.NofProjects);
+        tabLiInstance.li.appendChild(tabLiInstance.projectName);
+
+        projectLiDataBase.push(tabLiInstance.projectName.textContent);
+
+        let projectTabs = document.getElementById('project-list');
+
+        projectTabs.appendChild(tabLiInstance.li);
+
+        const todoUl = document.getElementById('todo-ul');
+
+        let projectFilterList = () => { 
+
+            let filter = todoDataBase.filter(todoObject => todoObject.projectName === tabLiInstance.projectName.textContent);
         
-
-            tabLiInstance.projectName.textContent = `${newTodo.projectName}`;
-
-            tabLiInstance.li.appendChild(tabLiInstance.NofProjects);
-            tabLiInstance.li.appendChild(tabLiInstance.projectName);
-
-            projectLiDataBase.push(tabLiInstance.projectName.textContent);
-
-            let projectTabs = document.getElementById('project-list');
-
-            //todo: #of todo's display div----------------
-
-    /* 
-            const amountOfTodosDisplay = document.createElement('p');
-                tabLiInstance.li.appendChild(amountOfTodosDisplay);
-
-                const numberDisplay = (projectFilterLength) => {
-                    amountOfTodosDisplay.textContent = `${projectFilterLength.length}`
-                }
-     */
-            
-            //--------------------------------------------
-
-            projectTabs.appendChild(tabLiInstance.li);
-
-            const todoUl = document.getElementById('todo-ul');
-
-                //* project filter----------
-
-
-                tabLiInstance.li.addEventListener('click', () => {
-
-                todoUl.querySelectorAll('li').forEach(n => n.remove());
-
-                rootDivContent.ulHeader.innerHTML = `<h3>${tabLiInstance.projectName.textContent}</h3><h3>Due Date</h3>`;
-
-                let projectFilterList = todoDataBase.filter(todoObject => todoObject.projectName === tabLiInstance.projectName.textContent);
-
-                for (let i = 0; i < projectFilterList.length; i++) {
-                    rootDivContent.addContent(projectFilterList[i].div);
-                }
-
-                numberDisplay(projectFilterList);
-
-                //todo: #of todo's display div.
-
-                
-
-                //--------------------------------------
-            });
+            return filter;
         };
 
+        //todo: idea: use query selectors to add  event listeners to the add and edit buttons.
+        let svgAddButton = document.querySelector('.svg-button');
+       
+    
+
+        svgAddButton.addEventListener('click', () => {
+            tabLiInstance.numberUpdate()
+        });
+
+        deleteButton.addEventListener('click', () => {
+            tabLiInstance.numberUpdate()
+        });
+
+        editButton.addEventListener('click', () => {
+            tabLiInstance.numberUpdate()
+        });
         
-}
+        
+        //* project filter----------
+
+        tabLiInstance.li.addEventListener('click', () => {
+
+            todoUl.querySelectorAll('li').forEach(n => n.remove());
+
+            rootDivContent.ulHeader.innerHTML = `<h3>${tabLiInstance.projectName.textContent}</h3><h3>Due Date</h3>`;
+
+            let projectFilter = projectFilterList();
+
+            for (let i = 0; i < projectFilter.length; i++) {
+                rootDivContent.addContent(projectFilter[i].div);
+            };
+        });
+    };
+
+return {tabLiInstance};
+        
+};
 
 export {projectFilter, projectLiDataBase};
+
+
 
 
    
